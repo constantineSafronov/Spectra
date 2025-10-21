@@ -47,7 +47,7 @@ struct SettingsView: View {
               .foregroundColor(.secondary)
           }
           
-          Section {
+          Section(header: Text("App Style").font(style.titleFont)) {
             Toggle(isOn: $showAuthorName) {
               VStack(alignment: .leading) {
                 Text("Show author name")
@@ -57,9 +57,6 @@ struct SettingsView: View {
                   .foregroundColor(.secondary)
               }
             }
-          }
-          
-          Section {
             Toggle(isOn: $showDescription) {
               VStack(alignment: .leading) {
                 Text("Show photo description")
@@ -69,14 +66,11 @@ struct SettingsView: View {
                   .foregroundColor(.secondary)
               }
             }
-          }
-          
-          Section {
             Toggle(isOn: $useTechnologyStyle) {
               VStack(alignment: .leading) {
                 Text("Use technology style")
                   .font(style.titleFont)
-                Text("Display descriptions in tech style.")
+                Text("Apply tech style through the whole app.")
                   .font(style.descriptionFont)
                   .foregroundColor(.secondary)
               }

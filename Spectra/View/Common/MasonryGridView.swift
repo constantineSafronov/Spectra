@@ -13,6 +13,7 @@ struct MasonryGridView: View {
   
   @Binding var photos: [Photo]
   @Binding var isLoadingNeeded: Bool
+  @EnvironmentObject var style: StyleService
   
   var animationNamespace: Namespace.ID
   var onPhotoTap: (Photo) -> Void
@@ -46,7 +47,7 @@ struct MasonryGridView: View {
         }
         Text("Fetching ...")
           .foregroundColor(.text)
-          .font(.subheadline.bold())
+          .font(style.titleFont)
           .padding(.top, 12)
           .background(
             GeometryReader { geo in
