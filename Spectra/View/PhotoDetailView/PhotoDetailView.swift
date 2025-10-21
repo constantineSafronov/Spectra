@@ -11,10 +11,13 @@ import Kingfisher
 import SwiftData
 
 struct PhotoDetailView: View {
+  
   let photo: Photo
   let namespace: Namespace.ID
   
+  private let dismissThreshold: CGFloat = 150
   @State private var onDisappear: Bool = false
+  @State private var dragOffset: CGFloat = 0
   
   @Binding var isPresented: Bool
   @State private var isSaving = false
@@ -29,21 +32,47 @@ struct PhotoDetailView: View {
     ZStack(alignment: .topLeading) {
       Color.background
         .ignoresSafeArea()
-      if onDisappear {
-        KFImage(URL(string: photo.urls.small))
-          .resizable()
-          .scaledToFit()
-          .matchedGeometryEffect(id: photo.id, in: namespace)
-          .frame(maxWidth: .infinity, maxHeight: .infinity)
-          .clipped()
-      } else {
-        KFImage(URL(string: photo.urls.small))
-          .resizable()
-          .scaledToFit()
-          .frame(maxWidth: .infinity, maxHeight: .infinity)
-          .clipped()
-          .matchedGeometryEffect(id: photo.id, in: namespace)
+      
+      let imageView = Group {
+        if onDisappear {
+          KFImage(URL(string: photo.urls.small))
+            .resizable()
+            .scaledToFit()
+            .matchedGeometryEffect(id: photo.id, in: namespace)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .clipped()
+        } else {
+          KFImage(URL(string: photo.urls.small))
+            .resizable()
+            .scaledToFit()
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .clipped()
+            .matchedGeometryEffect(id: photo.id, in: namespace)
+        }
       }
+      .offset(y: dragOffset)
+      .gesture(
+        DragGesture()
+          .onChanged { value in
+            if value.translation.height > 0 {
+              dragOffset = value.translation.height
+            }
+          }
+          .onEnded { value in
+            if dragOffset > dismissThreshold {
+              onDisappear = true
+              withAnimation(.bouncy) {
+                isPresented = false
+              }
+            } else {
+              withAnimation(.spring()) {
+                dragOffset = 0
+              }
+            }
+          }
+      )
+      
+      imageView
       
       VStack {
         HStack {
@@ -102,7 +131,6 @@ struct PhotoDetailView: View {
   }
   
   // MARK: - Save photo logic
-  
   private func savePhotoToLibrary() {
     guard let url = URL(string: photo.urls.full) else { return }
     isSaving = true
@@ -138,5 +166,4 @@ struct PhotoDetailView: View {
       continuation.resume()
     }
   }
-  
 }
