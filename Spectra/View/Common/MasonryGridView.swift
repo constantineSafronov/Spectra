@@ -118,8 +118,6 @@ struct MasonryPhotoItemView: View {
   let width: CGFloat
   let namespace: Namespace.ID
   
-  @AppStorage(AppStorageKeys.showAuthorName) private var showAuthorName: Bool = true
-  @AppStorage(AppStorageKeys.showPhotoDescription) private var showDescription: Bool = true
   @EnvironmentObject var style: StyleService
   
   var body: some View {
@@ -147,13 +145,13 @@ struct MasonryPhotoItemView: View {
       .allowsHitTesting(false)
       
       VStack(alignment: .leading, spacing: 4) {
-        if showAuthorName {
+        if style.showAuthorName {
           Text(photo.user.name)
             .foregroundColor(.white)
             .font(style.titleFont)
             .shadow(radius: 2)
         }
-        if let description = photo.altDescription, showDescription {
+        if let description = photo.altDescription, style.showDescription {
           Text(description.capitalized)
             .foregroundColor(.white)
             .font(style.descriptionFont)

@@ -8,10 +8,22 @@
 
 /* Begin PBXBuildFile section */
 		C860CC702EA420CF003ED5EC /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = C860CC6F2EA420CF003ED5EC /* Kingfisher */; };
+		C8FA80FA2EA91D7700668B1C /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = C8FA80F92EA91D7700668B1C /* ComposableArchitecture */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		C8FA816D2EA932E600668B1C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C820AA3C2EA232F800A8F058 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C820AA432EA232F800A8F058;
+			remoteInfo = Spectra;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		C820AA442EA232F800A8F058 /* Spectra.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Spectra.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C8FA81692EA932E600668B1C /* SpectraUnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpectraUnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -33,6 +45,11 @@
 			path = Spectra;
 			sourceTree = "<group>";
 		};
+		C8FA816A2EA932E600668B1C /* SpectraUnitTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = SpectraUnitTests;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -40,7 +57,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C8FA80FA2EA91D7700668B1C /* ComposableArchitecture in Frameworks */,
 				C860CC702EA420CF003ED5EC /* Kingfisher in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C8FA81662EA932E600668B1C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -51,6 +76,7 @@
 			isa = PBXGroup;
 			children = (
 				C820AA462EA232F800A8F058 /* Spectra */,
+				C8FA816A2EA932E600668B1C /* SpectraUnitTests */,
 				C820AA452EA232F800A8F058 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -59,6 +85,7 @@
 			isa = PBXGroup;
 			children = (
 				C820AA442EA232F800A8F058 /* Spectra.app */,
+				C8FA81692EA932E600668B1C /* SpectraUnitTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -84,10 +111,34 @@
 			name = Spectra;
 			packageProductDependencies = (
 				C860CC6F2EA420CF003ED5EC /* Kingfisher */,
+				C8FA80F92EA91D7700668B1C /* ComposableArchitecture */,
 			);
 			productName = Spectra;
 			productReference = C820AA442EA232F800A8F058 /* Spectra.app */;
 			productType = "com.apple.product-type.application";
+		};
+		C8FA81682EA932E600668B1C /* SpectraUnitTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C8FA816F2EA932E600668B1C /* Build configuration list for PBXNativeTarget "SpectraUnitTests" */;
+			buildPhases = (
+				C8FA81652EA932E600668B1C /* Sources */,
+				C8FA81662EA932E600668B1C /* Frameworks */,
+				C8FA81672EA932E600668B1C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C8FA816E2EA932E600668B1C /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				C8FA816A2EA932E600668B1C /* SpectraUnitTests */,
+			);
+			name = SpectraUnitTests;
+			packageProductDependencies = (
+			);
+			productName = SpectraUnitTests;
+			productReference = C8FA81692EA932E600668B1C /* SpectraUnitTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -102,6 +153,10 @@
 					C820AA432EA232F800A8F058 = {
 						CreatedOnToolsVersion = 26.0;
 					};
+					C8FA81682EA932E600668B1C = {
+						CreatedOnToolsVersion = 26.0;
+						TestTargetID = C820AA432EA232F800A8F058;
+					};
 				};
 			};
 			buildConfigurationList = C820AA3F2EA232F800A8F058 /* Build configuration list for PBXProject "Spectra" */;
@@ -115,6 +170,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				C860CC6E2EA420CF003ED5EC /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				C8FA80F82EA91D7700668B1C /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = C820AA452EA232F800A8F058 /* Products */;
@@ -122,12 +178,20 @@
 			projectRoot = "";
 			targets = (
 				C820AA432EA232F800A8F058 /* Spectra */,
+				C8FA81682EA932E600668B1C /* SpectraUnitTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		C820AA422EA232F800A8F058 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C8FA81672EA932E600668B1C /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -144,7 +208,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C8FA81652EA932E600668B1C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		C8FA816E2EA932E600668B1C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C820AA432EA232F800A8F058 /* Spectra */;
+			targetProxy = C8FA816D2EA932E600668B1C /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		C820AA4D2EA232FA00A8F058 /* Debug */ = {
@@ -359,6 +438,53 @@
 			};
 			name = Release;
 		};
+		C8FA81702EA932E600668B1C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 25RM6497BN;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = app.vibemedia.PrideFit;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Spectra.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Spectra";
+			};
+			name = Debug;
+		};
+		C8FA81712EA932E600668B1C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 25RM6497BN;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = app.vibemedia.PrideFit;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Spectra.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Spectra";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -380,6 +506,15 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		C8FA816F2EA932E600668B1C /* Build configuration list for PBXNativeTarget "SpectraUnitTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C8FA81702EA932E600668B1C /* Debug */,
+				C8FA81712EA932E600668B1C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
@@ -391,6 +526,14 @@
 				minimumVersion = 8.6.0;
 			};
 		};
+		C8FA80F82EA91D7700668B1C /* XCRemoteSwiftPackageReference "swift-composable-architecture" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pointfreeco/swift-composable-architecture.git";
+			requirement = {
+				kind = upToNextMinorVersion;
+				minimumVersion = 1.23.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -398,6 +541,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = C860CC6E2EA420CF003ED5EC /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
+		};
+		C8FA80F92EA91D7700668B1C /* ComposableArchitecture */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C8FA80F82EA91D7700668B1C /* XCRemoteSwiftPackageReference "swift-composable-architecture" */;
+			productName = ComposableArchitecture;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

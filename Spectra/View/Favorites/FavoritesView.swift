@@ -9,12 +9,7 @@ import SwiftUI
 
 struct FavoritesView: View {
   
-  private let model: FavoritesModel
   @EnvironmentObject var style: StyleService
-  
-  init(model: FavoritesModel) {
-    self.model = model
-  }
   
   var body: some View {
     ZStack(alignment: .topLeading) {
@@ -36,7 +31,7 @@ struct FavoritesView: View {
 // MARK: - Preview
 struct FavoritesView_Previews: PreviewProvider {
   static var previews: some View {
-    FavoritesView(model: FavoritesModel())
+    FavoritesView()
   }
 }
 

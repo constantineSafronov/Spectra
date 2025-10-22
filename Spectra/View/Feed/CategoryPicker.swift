@@ -12,7 +12,6 @@ struct CategoryPicker: View {
   
   @Binding var selectedCategory: Category
   @EnvironmentObject var style: StyleService
-  @AppStorage(AppStorageKeys.useTechnologyStyle) private var useTechnologyStyle: Bool = false
   
   var body: some View {
     ZStack {
@@ -34,15 +33,15 @@ struct CategoryPicker: View {
   private func buttonLabelForCategory(_ category: Category) -> some View {
     ZStack {
       if category == selectedCategory {
-        Color.accessory
+        Color.secondary
           .cornerRadius(6.0)
         Text(category.rawValue)
           .foregroundColor(.invertedAccessory)
           .font(style.pickerItemFont)
           .padding(.all, 8.0)
-          .padding(.top, useTechnologyStyle ? 3.0 : 0.0)
+          .padding(.top, 3.0)
       } else {
-        Color.accessory
+        Color.secondary
           .cornerRadius(6.0)
         Color.invertedAccessory
           .cornerRadius(6.0)
@@ -51,7 +50,7 @@ struct CategoryPicker: View {
           .foregroundColor(.text)
           .font(style.pickerItemFont)
           .padding(.all, 8.0)
-          .padding(.top, useTechnologyStyle ? 3.0 : 0.0)
+          .padding(.top, 3.0)
       }
     }
   }

@@ -91,4 +91,5 @@ struct SearchView_Previews: PreviewProvider {
   static var previews: some View {
     SearchView(model: SearchModel())
   }
+  
 }

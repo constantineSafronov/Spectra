@@ -30,8 +30,6 @@ struct SingleColumnGridView: View {
 
 struct SingleColumnPhotoItemView: View {
   
-  @AppStorage(AppStorageKeys.showAuthorName) private var showAuthorName: Bool = true
-  @AppStorage(AppStorageKeys.showPhotoDescription) private var showDescription: Bool = true
   @EnvironmentObject var style: StyleService
   @Environment(\.modelContext) private var modelContext
   
@@ -88,13 +86,13 @@ struct SingleColumnPhotoItemView: View {
       .allowsHitTesting(false)
       
       VStack(alignment: .leading, spacing: 4) {
-        if showAuthorName {
+        if style.showAuthorName {
           Text(photo.userName)
             .foregroundColor(.white)
             .font(style.titleFont)
             .shadow(radius: 2)
         }
-        if let description = photo.photoDescription, showDescription {
+        if let description = photo.photoDescription, style.showDescription {
           Text(description.capitalized)
             .foregroundColor(.white)
             .font(style.descriptionFont)
