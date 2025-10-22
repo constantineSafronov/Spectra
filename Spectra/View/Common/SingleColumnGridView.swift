@@ -57,7 +57,7 @@ struct SingleColumnPhotoItemView: View {
           try? modelContext.save()
         } label: {
           Image(systemName: "heart.fill")
-            .foregroundColor(.accessory)
+            .foregroundColor(.white)
             .padding(8)
             .background(.ultraThinMaterial)
             .clipShape(Circle())
@@ -67,7 +67,7 @@ struct SingleColumnPhotoItemView: View {
           savePhotoToLibrary()
         } label: {
           Image(systemName: isSaving ? "arrow.down.circle.fill" : "square.and.arrow.down")
-            .foregroundColor(.accessory)
+            .foregroundColor(.white)
             .padding(8)
             .background(.ultraThinMaterial)
             .clipShape(Circle())
