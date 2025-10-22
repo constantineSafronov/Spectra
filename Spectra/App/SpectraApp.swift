@@ -15,6 +15,13 @@ struct UnsplashImageLoaderApp: App {
   let store: StoreOf<AppFeature>
   
   init() {
+    UserDefaults.standard.register(defaults: [
+      AppStorageKeys.appTheme: AppTheme.dark.rawValue,
+      AppStorageKeys.showAuthorName: true,
+      AppStorageKeys.showPhotoDescription: true,
+      AppStorageKeys.useTechnologyStyle: false
+    ])
+    
     let appStore = Store(initialState: AppFeature.State()) {
       AppFeature()
     }
@@ -25,7 +32,6 @@ struct UnsplashImageLoaderApp: App {
       action: \.settings
     )
     self._styleService = StateObject(wrappedValue: StyleService(store: settingsStore))
-    registerDefaultSettings()
   }
   
   var body: some Scene {
@@ -35,12 +41,4 @@ struct UnsplashImageLoaderApp: App {
     }
   }
   
-  private func registerDefaultSettings() {
-    UserDefaults.standard.register(defaults: [
-      AppStorageKeys.appTheme: AppTheme.dark.rawValue,
-      AppStorageKeys.showAuthorName: true,
-      AppStorageKeys.showPhotoDescription: true,
-      AppStorageKeys.useTechnologyStyle: false
-    ])
-  }
 }

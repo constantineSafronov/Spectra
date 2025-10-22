@@ -35,7 +35,7 @@ enum AppTheme: String, CaseIterable {
 @Reducer
 struct SettingsFeature {
   struct State: Equatable {
-    var appTheme: AppTheme = AppTheme(rawValue: UserDefaults.standard.string(forKey: AppStorageKeys.appTheme) ?? "dark") ?? .dark
+    var appTheme: AppTheme = AppTheme(rawValue: UserDefaults.standard.string(forKey: AppStorageKeys.appTheme) ?? AppTheme.dark.rawValue) ?? .dark
     var showAuthorName: Bool = UserDefaults.standard.bool(forKey: AppStorageKeys.showAuthorName)
     var showDescription: Bool = UserDefaults.standard.bool(forKey: AppStorageKeys.showPhotoDescription)
     var useTechnologyStyle: Bool = UserDefaults.standard.bool(forKey: AppStorageKeys.useTechnologyStyle)
