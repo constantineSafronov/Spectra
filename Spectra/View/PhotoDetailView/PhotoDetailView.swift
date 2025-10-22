@@ -18,14 +18,13 @@ struct PhotoDetailView: View {
   private let dismissThreshold: CGFloat = 150
   @State private var onDisappear: Bool = false
   @State private var dragOffset: CGFloat = 0
-  
-  @Binding var isPresented: Bool
   @State private var isSaving = false
   @State private var showSaveResult = false
   @State private var saveResultMessage = ""
   
-  @Environment(\.modelContext) private var modelContext
+  @Binding var isPresented: Bool
   @Query private var favorites: [FavoritePhoto]
+  @Environment(\.modelContext) private var modelContext
   @EnvironmentObject var style: StyleService
   
   var body: some View {

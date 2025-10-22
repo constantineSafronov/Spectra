@@ -51,9 +51,9 @@ struct SettingsView: View {
                 send: SettingsFeature.Action.toggleShowAuthorName
               )) {
                 VStack(alignment: .leading) {
-                  Text(LocalizedStrings.Settings.authorNameSwitchTitle)
+                  Text(LocalizedStrings.Settings.authorNameSwitchTitle.localized)
                     .font(style.titleFont)
-                  Text(LocalizedStrings.Settings.authorNameSwitchDescription)
+                  Text(LocalizedStrings.Settings.authorNameSwitchDescription.localized)
                     .font(style.descriptionFont)
                     .foregroundColor(.secondary)
                 }
@@ -64,9 +64,9 @@ struct SettingsView: View {
                 send: SettingsFeature.Action.toggleShowDescription
               )) {
                 VStack(alignment: .leading) {
-                  Text(LocalizedStrings.Settings.descriptionSwitchTitle)
+                  Text(LocalizedStrings.Settings.descriptionSwitchTitle.localized)
                     .font(style.titleFont)
-                  Text(LocalizedStrings.Settings.descriptionSwitchDescription)
+                  Text(LocalizedStrings.Settings.descriptionSwitchDescription.localized)
                     .font(style.descriptionFont)
                     .foregroundColor(.secondary)
                 }
@@ -77,9 +77,9 @@ struct SettingsView: View {
                 send: SettingsFeature.Action.toggleUseTechnologyStyle
               )) {
                 VStack(alignment: .leading) {
-                  Text(LocalizedStrings.Settings.techSwitchTitle)
+                  Text(LocalizedStrings.Settings.techSwitchTitle.localized)
                     .font(style.titleFont)
-                  Text(LocalizedStrings.Settings.techSwitchDescription)
+                  Text(LocalizedStrings.Settings.techSwitchDescription.localized)
                     .font(style.descriptionFont)
                     .foregroundColor(.secondary)
                 }

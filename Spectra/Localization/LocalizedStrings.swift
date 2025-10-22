@@ -5,15 +5,19 @@
 //  Created by Konstantin Safronov on 22.10.2025.
 //
 
-enum LocalizedStrings: String {
+import Foundation
+
+enum LocalizedStrings {
+    
   enum Common: String {
     case fetching = "common.fetching"
     case save = "common.save"
     case ok = "common.ok"
     case error = "common.error"
+    case favorite = " common.favorite"
     case savePhotoMessage = "common.savePhotoMessage"
     case savingPhotoFailureMessage = "common.savingPhotoFailureMessage"
-    
+   
     var localized: String {
       NSLocalizedString(rawValue, bundle: .main, comment: "")
     }
@@ -40,7 +44,4 @@ enum LocalizedStrings: String {
     }
   }
   
-  var localized: String {
-    NSLocalizedString(rawValue, bundle: .main, comment: "")
-  }
 }
