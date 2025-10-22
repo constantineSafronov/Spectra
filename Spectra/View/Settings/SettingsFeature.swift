@@ -11,7 +11,7 @@ import Foundation
 // MARK: - User Defaults keys
 
 enum AppStorageKeys {
-  static let appTheme = "showAuappThemethorName"
+  static let appTheme = "appTheme"
   static let showAuthorName = "showAuthorName"
   static let showPhotoDescription = "showPhotoDescription"
   static let useTechnologyStyle = "useTechNologyStyle"
