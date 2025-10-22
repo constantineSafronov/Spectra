@@ -126,12 +126,13 @@ struct SingleColumnPhotoItemView: View {
         let (data, _) = try await URLSession.shared.data(from: url)
         if let image = UIImage(data: data) {
           await saveToPhotos(image)
-          saveResultMessage = "Photo saved to your gallery"
+          
+          saveResultMessage = LocalizedStrings.Common.savePhotoMessage.localized
         } else {
-          saveResultMessage = "Failed to load image data"
+          saveResultMessage = LocalizedStrings.Common.savingPhotoFailureMessage.localized
         }
       } catch {
-        saveResultMessage = "Error: \(error.localizedDescription)"
+        saveResultMessage = "\(LocalizedStrings.Common.error.localized.capitalized): \(error.localizedDescription)"
       }
       
       isSaving = false
