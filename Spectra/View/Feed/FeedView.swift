@@ -65,7 +65,7 @@ struct FeedView: View {
       }
     }
     .alert(model.localizedError, isPresented: $model.showsError) {
-      Button("OK", role: .cancel) {}
+      Button(LocalizedStrings.Common.ok.uppercased(), role: .cancel) {}
     }
   }
 }
