@@ -38,12 +38,23 @@ struct FeedView: View {
             withAnimation(.bouncy) {
               showDetail = true
             }
-            
           }
         )
         .padding(.top, 12.0)
       }
       .zIndex(0)
+      if model.isLoadingNeeded {
+        ProgressView()
+          .scaleEffect(1.5)
+          .tint(.white)
+          .padding()
+          .background(
+            RoundedRectangle(cornerRadius: 12)
+              .fill(Color.white.opacity(0.3))
+          )
+          .transition(.opacity)
+          .zIndex(2)
+      }
       if let photo = selectedPhoto, showDetail {
         PhotoDetailView(
           photo: photo,
