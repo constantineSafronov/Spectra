@@ -3,7 +3,6 @@
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24063"/>
-        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -17,30 +16,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xnf-vZ-gS4">
-                                <rect key="frame" x="0.0" y="1.3333333333333144" width="393" height="849.66666666666674"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" insetsLayoutMarginsFromSafeArea="NO" image="Logo" translatesAutoresizingMaskIntoConstraints="NO" id="Xnf-vZ-gS4">
+                                <rect key="frame" x="-1" y="228.66666666666663" width="395" height="395"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="tintColor" name="accessory"/>
-                                <imageReference key="image" image="app.specular" catalog="system" symbolScale="default"/>
                             </imageView>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Spectra" textAlignment="center" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="GJd-Yh-RWb">
-                                <rect key="frame" x="0.0" y="130" width="393" height="43"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="36"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Bcu-3y-fUS"/>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.9287109375" green="0.9252929688" blue="0.9184570312" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="Xnf-vZ-gS4" secondAttribute="trailing" id="96y-RT-qNL"/>
-                            <constraint firstAttribute="trailing" secondItem="GJd-Yh-RWb" secondAttribute="trailing" id="EXs-zF-33q"/>
-                            <constraint firstItem="Xnf-vZ-gS4" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="POI-sq-N7b"/>
-                            <constraint firstAttribute="bottom" secondItem="Xnf-vZ-gS4" secondAttribute="bottom" id="Q4a-VL-8uZ"/>
-                            <constraint firstItem="Xnf-vZ-gS4" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="erK-NJ-GPS"/>
-                            <constraint firstItem="GJd-Yh-RWb" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="bottom" multiplier="1/3" constant="-132.5" id="moa-c2-u7t"/>
-                            <constraint firstItem="GJd-Yh-RWb" firstAttribute="leading" secondItem="Bcu-3y-fUS" secondAttribute="leading" symbolic="YES" id="x7j-FC-K8j"/>
-                            <constraint firstItem="GJd-Yh-RWb" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="y2Y-ES-OFT"/>
+                            <constraint firstItem="Xnf-vZ-gS4" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="MbN-bY-eN4"/>
+                            <constraint firstItem="Xnf-vZ-gS4" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="n38-H3-Q3v"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -50,7 +36,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="app.specular" catalog="system" width="128" height="115"/>
+        <image name="Logo" width="395" height="395"/>
         <namedColor name="accessory">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
