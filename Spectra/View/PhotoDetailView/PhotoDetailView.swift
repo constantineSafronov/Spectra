@@ -101,7 +101,10 @@ struct PhotoDetailView: View {
           Button {
             savePhotoToLibrary()
           } label: {
-            Label("Save", systemImage: isSaving ? "arrow.down.circle.fill" : "square.and.arrow.down")
+            Label(
+              LocalizedStrings.Common.save.localized.capitalized,
+              systemImage: isSaving ? "arrow.down.circle.fill" : "square.and.arrow.down"
+            )
               .font(style.controlsFont)
           }
           .disabled(isSaving)
@@ -123,7 +126,7 @@ struct PhotoDetailView: View {
       }
     }
     .alert(saveResultMessage, isPresented: $showSaveResult) {
-      Button("OK", role: .cancel) {}
+      Button(LocalizedStrings.Common.ok.localized.uppercased(), role: .cancel) {}
     }
     .onDisappear {
       isPresented = false
@@ -140,12 +143,12 @@ struct PhotoDetailView: View {
         let (data, _) = try await URLSession.shared.data(from: url)
         if let image = UIImage(data: data) {
           await saveToPhotos(image)
-          saveResultMessage = "Photo saved to your gallery"
+          saveResultMessage = LocalizedStrings.Common.savePhotoMessage.localized
         } else {
-          saveResultMessage = "Failed to load image data"
+          saveResultMessage = LocalizedStrings.Common.savingPhotoFailureMessage.localized
         }
       } catch {
-        saveResultMessage = "Error: \(error.localizedDescription)"
+        saveResultMessage = "\(LocalizedStrings.Common.error.localized.capitalized): \(error.localizedDescription)"
       }
       
       isSaving = false

@@ -8,6 +8,30 @@
 import ComposableArchitecture
 import Foundation
 
+// MARK: - User Defaults keys
+
+enum AppStorageKeys {
+  static let appTheme = "showAuappThemethorName"
+  static let showAuthorName = "showAuthorName"
+  static let showPhotoDescription = "showPhotoDescription"
+  static let useTechnologyStyle = "useTechNologyStyle"
+}
+
+// MARK: - Theme enum
+
+enum AppTheme: String, CaseIterable {
+  case light, dark, system
+  
+  var description: String {
+    switch self {
+    case .light: return LocalizedStrings.Settings.lightMode.localized
+    case .dark: return LocalizedStrings.Settings.darkMode.localized
+    case .system: return LocalizedStrings.Settings.systemMode.localized
+    }
+  }
+  
+}
+
 @Reducer
 struct SettingsFeature {
   struct State: Equatable {

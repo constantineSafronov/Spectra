@@ -8,30 +8,6 @@
 import SwiftUI
 import ComposableArchitecture
 
-// MARK: - User Defaults keys
-
-enum AppStorageKeys {
-  static let appTheme = "showAuappThemethorName"
-  static let showAuthorName = "showAuthorName"
-  static let showPhotoDescription = "showPhotoDescription"
-  static let useTechnologyStyle = "useTechNologyStyle"
-}
-
-// MARK: - Theme enum
-
-enum AppTheme: String, CaseIterable {
-  case light, dark, system
-  
-  var description: String {
-    switch self {
-    case .light: return "Light"
-    case .dark: return "Dark"
-    case .system: return "System"
-    }
-  }
-  
-}
-
 struct SettingsView: View {
   
   let store: StoreOf<SettingsFeature>
@@ -41,7 +17,7 @@ struct SettingsView: View {
     WithViewStore(store, observe: { $0 }) { viewStore in
       NavigationView {
         VStack(alignment: .leading) {
-          Text("Settings")
+          Text(LocalizedStrings.Settings.title.localized)
             .foregroundColor(.text)
             .font(style.largeTitleFont)
             .padding(.top, 20)
@@ -49,34 +25,35 @@ struct SettingsView: View {
           
           Form {
             // MARK: Theme
-            Section(header: Text("Theme").font(style.titleFont)) {
-              Picker("App Theme", selection: viewStore.binding(
-                get: \.appTheme,
-                send: SettingsFeature.Action.setAppTheme
-              )) {
-                ForEach(AppTheme.allCases, id: \.self) { theme in
-                  Text(theme.description)
-                    .font(.custom("Technology-Regular", size: 16))
-                    .tag(theme)
+            Section(header: Text(LocalizedStrings.Settings.themeSectionTitle.localized)
+              .font(style.titleFont)) {
+                Picker(LocalizedStrings.Settings.themePickerTitle.localized, selection: viewStore.binding(
+                  get: \.appTheme,
+                  send: SettingsFeature.Action.setAppTheme
+                )) {
+                  ForEach(AppTheme.allCases, id: \.self) { theme in
+                    Text(theme.description)
+                      .font(.custom("Technology-Regular", size: 16))
+                      .tag(theme)
+                  }
                 }
+                .tint(.secondary)
+                
+                Text(LocalizedStrings.Settings.themePickerDescription.localized)
+                  .font(style.descriptionFont)
+                  .foregroundColor(.secondary)
               }
-              .tint(.secondary)
-              
-              Text("Select the appearance of the app: light or dark mode.")
-                .font(style.descriptionFont)
-                .foregroundColor(.secondary)
-            }
             
             // MARK: App Style
-            Section(header: Text("App Style").font(style.titleFont)) {
+            Section(header: Text(LocalizedStrings.Settings.appStyleSectionTitle.localized).font(style.titleFont)) {
               Toggle(isOn: viewStore.binding(
                 get: \.showAuthorName,
                 send: SettingsFeature.Action.toggleShowAuthorName
               )) {
                 VStack(alignment: .leading) {
-                  Text("Show author name")
+                  Text(LocalizedStrings.Settings.authorNameSwitchTitle)
                     .font(style.titleFont)
-                  Text("Display the author's name.")
+                  Text(LocalizedStrings.Settings.authorNameSwitchDescription)
                     .font(style.descriptionFont)
                     .foregroundColor(.secondary)
                 }
@@ -87,9 +64,9 @@ struct SettingsView: View {
                 send: SettingsFeature.Action.toggleShowDescription
               )) {
                 VStack(alignment: .leading) {
-                  Text("Show photo description")
+                  Text(LocalizedStrings.Settings.descriptionSwitchTitle)
                     .font(style.titleFont)
-                  Text("Display the description of the photo if available.")
+                  Text(LocalizedStrings.Settings.descriptionSwitchDescription)
                     .font(style.descriptionFont)
                     .foregroundColor(.secondary)
                 }
@@ -100,9 +77,9 @@ struct SettingsView: View {
                 send: SettingsFeature.Action.toggleUseTechnologyStyle
               )) {
                 VStack(alignment: .leading) {
-                  Text("Use technology style")
+                  Text(LocalizedStrings.Settings.techSwitchTitle)
                     .font(style.titleFont)
-                  Text("Apply tech style through the whole app.")
+                  Text(LocalizedStrings.Settings.techSwitchDescription)
                     .font(style.descriptionFont)
                     .foregroundColor(.secondary)
                 }

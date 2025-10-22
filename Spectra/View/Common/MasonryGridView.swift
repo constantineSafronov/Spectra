@@ -45,7 +45,7 @@ struct MasonryGridView: View {
             }
           }
         }
-        Text("Fetching ...")
+        Text(String.localized(.common))
           .foregroundColor(.text)
           .font(style.titleFont)
           .padding(.top, 12)
