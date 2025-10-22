@@ -116,7 +116,7 @@ struct PhotoDetailView: View {
             }
             try? modelContext.save()
           } label: {
-            Label("Favorite", systemImage: favorites.contains(where: { $0.id == photo.id }) ? "heart.fill" : "heart")
+            Label(LocalizedStrings.Common.favorite.localized.capitalized, systemImage: favorites.contains(where: { $0.id == photo.id }) ? "heart.fill" : "heart")
               .font(style.controlsFont)
           }
         }
