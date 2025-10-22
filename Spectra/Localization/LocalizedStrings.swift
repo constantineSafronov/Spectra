@@ -23,6 +23,14 @@ enum LocalizedStrings {
     }
   }
   
+  enum Search: String {
+    case searchBarPlaceholder = "search.searchBarPlaceholder"
+   
+    var localized: String {
+      NSLocalizedString(rawValue, bundle: .main, comment: "")
+    }
+  }
+  
   enum Settings: String {
     case title = "settings.title"
     case darkMode = "settings.darkMode"

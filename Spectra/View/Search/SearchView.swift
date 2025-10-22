@@ -61,7 +61,7 @@ struct SearchView: View {
       }
     }
     .alert(model.localizedError, isPresented: $model.showsError) {
-      Button("OK", role: .cancel) {}
+      Button(LocalizedStrings.Common.ok.localized.uppercased(), role: .cancel) {}
     }
   }
   
@@ -71,16 +71,31 @@ struct SearchView: View {
         .frame(height: 56)
         .cornerRadius(23)
         .padding(.horizontal)
+      
       HStack {
         Image(systemName: "magnifyingglass")
           .foregroundColor(.secondary)
-          .padding(.leading, 16)
-        TextField("Search photos", text: $model.searchText)
+          .padding(.leading, 24)
+        
+        TextField(LocalizedStrings.Search.searchBarPlaceholder.localized, text: $model.searchText)
           .textFieldStyle(PlainTextFieldStyle())
           .font(style.searchBarFont)
-          .padding(.leading, 16)
+          .padding(.leading, 8)
+          .disableAutocorrection(true)
+        
+        if !model.searchText.isEmpty {
+          Button {
+            model.searchText = ""
+          } label: {
+            Image(systemName: "xmark.circle.fill")
+              .foregroundColor(.secondary)
+              .padding(.trailing, 24)
+          }
+          .transition(.opacity.combined(with: .scale))
+          .animation(.easeInOut(duration: 0.2), value: model.searchText)
+        }
       }
-      .padding(.horizontal, 16)
+      .padding(.horizontal, 8)
     }
   }
   
