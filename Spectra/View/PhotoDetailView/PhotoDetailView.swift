@@ -14,7 +14,7 @@ struct PhotoDetailView: View {
   
   let photo: Photo
   let namespace: Namespace.ID
-  
+  let modelContext: ModelContext
   private let dismissThreshold: CGFloat = 150
   @State private var onDisappear: Bool = false
   @State private var dragOffset: CGFloat = 0
@@ -24,7 +24,6 @@ struct PhotoDetailView: View {
   
   @Binding var isPresented: Bool
   @Query private var favorites: [FavoritePhoto]
-  @Environment(\.modelContext) private var modelContext
   @EnvironmentObject var style: StyleService
   
   var body: some View {
@@ -49,27 +48,27 @@ struct PhotoDetailView: View {
             .matchedGeometryEffect(id: photo.id, in: namespace)
         }
       }
-      .offset(y: dragOffset)
-      .gesture(
-        DragGesture()
-          .onChanged { value in
-            if value.translation.height > 0 {
-              dragOffset = value.translation.height
-            }
-          }
-          .onEnded { value in
-            if dragOffset > dismissThreshold {
-              onDisappear = true
-              withAnimation(.bouncy) {
-                isPresented = false
-              }
-            } else {
-              withAnimation(.spring()) {
-                dragOffset = 0
+        .offset(y: dragOffset)
+        .gesture(
+          DragGesture()
+            .onChanged { value in
+              if value.translation.height > 0 {
+                dragOffset = value.translation.height
               }
             }
-          }
-      )
+            .onEnded { value in
+              if dragOffset > dismissThreshold {
+                onDisappear = true
+                withAnimation(.bouncy) {
+                  isPresented = false
+                }
+              } else {
+                withAnimation(.spring()) {
+                  dragOffset = 0
+                }
+              }
+            }
+        )
       
       imageView
       
@@ -104,7 +103,7 @@ struct PhotoDetailView: View {
               LocalizedStrings.Common.save.localized.capitalized,
               systemImage: isSaving ? "arrow.down.circle.fill" : "square.and.arrow.down"
             )
-              .font(style.controlsFont)
+            .font(style.controlsFont)
           }
           .disabled(isSaving)
           
@@ -168,4 +167,43 @@ struct PhotoDetailView: View {
       continuation.resume()
     }
   }
+}
+
+// MARK: - Preview
+
+#Preview("PhotoDetailView") {
+  struct PhotoDetailPreview: View {
+    @State private var isPresented = true
+    @Namespace private var namespace
+    
+    let mockPhoto = Photo(
+      id: "preview-photo",
+      altDescription:"Beautiful landscape with mountains and lake during golden hour sunset",
+      urls: Urls(
+        thumb: "",
+        small: "https://images.unsplash.com/photo-1541963463532-d68292c34b19",
+        regular: "",
+        full: "https://images.unsplash.com/photo-1541963463532-d68292c34b19"
+      ),
+      width: 3000,
+      height: 4000,
+      user: User(id: "", name: "John Photographer", username: "John")
+    )
+    
+    let modelContext = try! ModelContainer(
+      for: FavoritePhoto.self,
+      configurations: ModelConfiguration(isStoredInMemoryOnly: true)
+    ).mainContext
+    
+    var body: some View {
+      PhotoDetailView(
+        photo: mockPhoto,
+        namespace: namespace,
+        modelContext: modelContext,
+        isPresented: $isPresented
+      )
+    }
+  }
+  
+  return PhotoDetailPreview()
 }

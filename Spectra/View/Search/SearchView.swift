@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct SearchView: View {
   
@@ -14,9 +15,11 @@ struct SearchView: View {
   @State private var showDetail = false
   @State private var selectedPhoto: Photo?
   @EnvironmentObject var style: StyleService
+  private let modelContext: ModelContext
   
-  init(model: SearchModel) {
+  init(model: SearchModel, modelContext: ModelContext) {
     self.model = model
+    self.modelContext = modelContext
   }
   
   var body: some View {
@@ -52,6 +55,7 @@ struct SearchView: View {
         PhotoDetailView(
           photo: photo,
           namespace: animationNamespace,
+          modelContext: modelContext,
           isPresented: $showDetail
         )
         .zIndex(1)
@@ -100,9 +104,14 @@ struct SearchView: View {
 }
 
 // MARK: - Preview
-struct SearchView_Previews: PreviewProvider {
-  static var previews: some View {
-    SearchView(model: SearchModel())
-  }
+
+#Preview {
+  let mockModel = FeedModel()
+  let mockContainer = try! ModelContainer(for: FavoritePhoto.self, configurations: ModelConfiguration(isStoredInMemoryOnly: true))
+  let mockContext = mockContainer.mainContext
   
+  FeedView(
+    model: mockModel,
+    modelContext: mockContext
+  )
 }

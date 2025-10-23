@@ -17,7 +17,7 @@ enum AppStorageKeys {
   static let useTechnologyStyle = "useTechNologyStyle"
 }
 
-// MARK: - Theme enum
+// MARK: - Theme options
 
 enum AppTheme: String, CaseIterable {
   case light, dark, system
@@ -35,7 +35,9 @@ enum AppTheme: String, CaseIterable {
 @Reducer
 struct SettingsFeature {
   struct State: Equatable {
-    var appTheme: AppTheme = AppTheme(rawValue: UserDefaults.standard.string(forKey: AppStorageKeys.appTheme) ?? AppTheme.dark.rawValue) ?? .dark
+    var appTheme = AppTheme(
+      rawValue: UserDefaults.standard.string(forKey: AppStorageKeys.appTheme) ?? AppTheme.dark.rawValue
+    ) ?? .dark
     var showAuthorName: Bool = UserDefaults.standard.bool(forKey: AppStorageKeys.showAuthorName)
     var showDescription: Bool = UserDefaults.standard.bool(forKey: AppStorageKeys.showPhotoDescription)
     var useTechnologyStyle: Bool = UserDefaults.standard.bool(forKey: AppStorageKeys.useTechnologyStyle)

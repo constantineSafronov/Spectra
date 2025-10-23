@@ -7,15 +7,18 @@
 
 import SwiftUI
 import UIKit
+import SwiftData
+import ComposableArchitecture
 
 struct FeedView: View {
   @ObservedObject var model: FeedModel
-  
+  private let modelContext: ModelContext
   @Namespace private var animationNamespace
   @State private var selectedPhoto: Photo?
   @State private var showDetail = false
   
-  init(model: FeedModel) {
+  init(model: FeedModel, modelContext: ModelContext) {
+    self.modelContext = modelContext
     self.model = model
   }
   
@@ -24,11 +27,25 @@ struct FeedView: View {
       Color.background
         .ignoresSafeArea()
       VStack {
+        ZStack {
+          Color.logoBackground
+          HStack(alignment: .center) {
+            Image(.logo)
+              .resizable()
+              .scaledToFit()
+              .frame(width: 40.0, height: 40.0)
+              .clipped()
+            Text(LocalizedStrings.Common.appName.localized)
+              .font(.title)
+              .foregroundColor(.black)
+          }
+          .padding(.top, 34.0)
+        }
+        .frame(height: 100.0)
+        .ignoresSafeArea()
         CategoryPicker(
           selectedCategory: $model.selectedCategory
         )
-        .padding(.horizontal, 16)
-        .padding(.top, 6)
         MasonryGridView(
           photos: $model.photoList,
           isLoadingNeeded: $model.isLoadingNeeded,
@@ -40,8 +57,8 @@ struct FeedView: View {
             }
           }
         )
-        .padding(.top, 12.0)
       }
+      .ignoresSafeArea()
       .zIndex(0)
       if model.isLoadingNeeded {
         ProgressView()
@@ -59,6 +76,7 @@ struct FeedView: View {
         PhotoDetailView(
           photo: photo,
           namespace: animationNamespace,
+          modelContext: modelContext,
           isPresented: $showDetail
         )
         .zIndex(1)
@@ -70,8 +88,15 @@ struct FeedView: View {
   }
 }
 
+// MARK: - Preview
+
 #Preview {
-  FeedView(model: FeedModel())
+  let mockModel = FeedModel()
+  let mockContainer = try! ModelContainer(for: FavoritePhoto.self, configurations: ModelConfiguration(isStoredInMemoryOnly: true))
+  let mockContext = mockContainer.mainContext
+  
+  FeedView(
+    model: mockModel,
+    modelContext: mockContext
+  )
 }
-
-

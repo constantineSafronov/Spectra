@@ -6,12 +6,14 @@
 //
 
 import SwiftUI
+import SwiftData
 import ComposableArchitecture
 
 @main
 struct UnsplashImageLoaderApp: App {
   
   @StateObject private var styleService: StyleService
+
   let store: StoreOf<AppFeature>
   
   init() {
@@ -38,6 +40,7 @@ struct UnsplashImageLoaderApp: App {
     WindowGroup {
       MainView(store: store)
         .environmentObject(styleService)
+        .modelContainer(for: FavoritePhoto.self)
     }
   }
   

@@ -27,7 +27,7 @@ struct CategoryPicker: View {
         }
       }
     }
-    .frame(height: 30.0)
+    .frame(height: 36.0)
   }
   
   private func buttonLabelForCategory(_ category: Category) -> some View {
@@ -57,6 +57,10 @@ struct CategoryPicker: View {
   
 }
 
+// MARK: - Preview
+
 #Preview {
-  FeedView(model: FeedModel())
+  CategoryPicker(selectedCategory: .constant(Category.architecture))
+    .padding()
+    .background(Color.gray)
 }

@@ -22,6 +22,7 @@ enum LocalizedStrings {
   }
     
   enum Common: String {
+    case appName = "common.appName"
     case fetching = "common.fetching"
     case save = "common.save"
     case ok = "common.ok"
