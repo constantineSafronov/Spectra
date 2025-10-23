@@ -60,7 +60,7 @@ struct FeedView: View {
       }
       .ignoresSafeArea()
       .zIndex(0)
-      if model.isLoadingNeeded {
+      if model.isLoadingNeeded && model.photoList.isEmpty {
         ProgressView()
           .scaleEffect(1.5)
           .tint(.white)
