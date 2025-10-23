@@ -38,11 +38,11 @@ extension DependencyValues {
 }
 
 private enum FavoritePhotoClientKey: DependencyKey {
-  static let liveValue: FavoritePhotoClient = .noop
+  static let liveValue: FavoritePhotoClient = .fake
 }
 
 extension FavoritePhotoClient {
-  static let noop = FavoritePhotoClient(
+  static let fake = FavoritePhotoClient(
     fetchFavorites: { [] },
     delete: { _ in },
     saveToLibrary: { _ in
