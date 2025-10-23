@@ -16,17 +16,19 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" insetsLayoutMarginsFromSafeArea="NO" image="Logo" translatesAutoresizingMaskIntoConstraints="NO" id="Xnf-vZ-gS4">
-                                <rect key="frame" x="-1" y="228.66666666666663" width="395" height="395"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" insetsLayoutMarginsFromSafeArea="NO" image="Logo" translatesAutoresizingMaskIntoConstraints="NO" id="Xnf-vZ-gS4">
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                                <color key="backgroundColor" red="0.9287109375" green="0.9252929688" blue="0.9184570312" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <color key="tintColor" name="accessory"/>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Bcu-3y-fUS"/>
                         <color key="backgroundColor" red="0.9287109375" green="0.9252929688" blue="0.9184570312" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
-                            <constraint firstItem="Xnf-vZ-gS4" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="MbN-bY-eN4"/>
-                            <constraint firstItem="Xnf-vZ-gS4" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="n38-H3-Q3v"/>
+                            <constraint firstItem="Xnf-vZ-gS4" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="1P9-ne-YBp"/>
+                            <constraint firstItem="Xnf-vZ-gS4" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="E0r-UZ-hqk"/>
+                            <constraint firstAttribute="trailing" secondItem="Xnf-vZ-gS4" secondAttribute="trailing" id="Gq3-ZH-0q0"/>
+                            <constraint firstAttribute="bottom" secondItem="Xnf-vZ-gS4" secondAttribute="bottom" id="Qvg-fy-xM9"/>
                         </constraints>
                     </view>
                 </viewController>

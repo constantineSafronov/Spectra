@@ -14,13 +14,14 @@ enum LocalizedStrings {
     case save = "common.save"
     case ok = "common.ok"
     case error = "common.error"
-    case favorite = " common.favorite"
+    case favorite = "common.favorite"
     case savePhotoMessage = "common.savePhotoMessage"
     case savingPhotoFailureMessage = "common.savingPhotoFailureMessage"
    
     var localized: String {
       NSLocalizedString(rawValue, bundle: .main, comment: "")
     }
+    
   }
   
   enum Search: String {
@@ -29,6 +30,7 @@ enum LocalizedStrings {
     var localized: String {
       NSLocalizedString(rawValue, bundle: .main, comment: "")
     }
+    
   }
   
   enum Settings: String {
@@ -50,6 +52,7 @@ enum LocalizedStrings {
     var localized: String {
       NSLocalizedString(rawValue, bundle: .main, comment: "")
     }
+    
   }
   
 }

@@ -18,7 +18,7 @@ struct UnsplashImageLoaderApp: App {
     UserDefaults.standard.register(defaults: [
       AppStorageKeys.appTheme: AppTheme.dark.rawValue,
       AppStorageKeys.showAuthorName: true,
-      AppStorageKeys.showPhotoDescription: true,
+      AppStorageKeys.showPhotoDescription: false,
       AppStorageKeys.useTechnologyStyle: false
     ])
     
