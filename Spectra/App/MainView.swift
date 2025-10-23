@@ -21,17 +21,17 @@ struct MainView: View {
       TabView {
         FeedView(model: FeedModel())
           .tabItem {
-            Label("Feed", systemImage: "photo.on.rectangle")
+            Label(LocalizedStrings.TabBar.feed.localized, systemImage: "photo.on.rectangle")
           }
         
         SearchView(model: SearchModel())
           .tabItem {
-            Label("Search", systemImage: "magnifyingglass")
+            Label(LocalizedStrings.TabBar.search.localized, systemImage: "magnifyingglass")
           }
         
         FavoritesView()
           .tabItem {
-            Label("Favorites", systemImage: "heart")
+            Label(LocalizedStrings.TabBar.favorites.localized, systemImage: "heart")
           }
         
         SettingsView(
@@ -41,7 +41,7 @@ struct MainView: View {
           )
         )
         .tabItem {
-          Label("Settings", systemImage: "gearshape")
+          Label(LocalizedStrings.TabBar.settings.localized, systemImage: "gearshape")
         }
       }
       .tint(.black)

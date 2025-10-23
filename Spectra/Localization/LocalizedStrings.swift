@@ -8,6 +8,18 @@
 import Foundation
 
 enum LocalizedStrings {
+  
+  enum TabBar: String {
+    case feed = "tabBar.feed"
+    case search = "tabBar.search"
+    case favorites = "tabBar.favorites"
+    case settings = "tabBar.settings"
+   
+    var localized: String {
+      NSLocalizedString(rawValue, bundle: .main, comment: "")
+    }
+    
+  }
     
   enum Common: String {
     case fetching = "common.fetching"
@@ -26,6 +38,15 @@ enum LocalizedStrings {
   
   enum Search: String {
     case searchBarPlaceholder = "search.searchBarPlaceholder"
+   
+    var localized: String {
+      NSLocalizedString(rawValue, bundle: .main, comment: "")
+    }
+    
+  }
+  
+  enum Favorites: String {
+    case title = "favorites.title"
    
     var localized: String {
       NSLocalizedString(rawValue, bundle: .main, comment: "")

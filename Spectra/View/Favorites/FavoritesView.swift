@@ -16,7 +16,7 @@ struct FavoritesView: View {
       Color.background
         .ignoresSafeArea()
       VStack(alignment: .leading) {
-        Text("Favorites")
+        Text(LocalizedStrings.Favorites.title.localized)
           .foregroundColor(.text)
           .font(style.largeTitleFont)
           .padding(.top, 20.0)

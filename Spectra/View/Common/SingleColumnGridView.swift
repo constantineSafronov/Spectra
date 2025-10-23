@@ -105,7 +105,7 @@ struct SingleColumnPhotoItemView: View {
       .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomLeading)
     }
     .alert(saveResultMessage, isPresented: $showSaveResult) {
-      Button("OK", role: .cancel) {}
+      Button(LocalizedStrings.Common.ok.localized, role: .cancel) {}
     }
   }
   
