@@ -1,5 +1,7 @@
 # Spectra 🌈
 
+![SwiftUI](https://img.shields.io/badge/SwiftUI-Orange?style=flat-square&logo=swift) ![iOS](https://img.shields.io/badge/iOS-Blue?style=flat-square&logo=apple) ![TCA](https://img.shields.io/badge/TCA-Purple?style=flat-square) ![Combine](https://img.shields.io/badge/Combine-Red?style=flat-square) ![SwiftData](https://img.shields.io/badge/SwiftData-LightBlue?style=flat-square)
+
 **Spectra** is a modern iOS photo browsing app built with **SwiftUI** and **The Composable Architecture (TCA)**. It leverages the **Unsplash API** to search and display stunning images with smooth, interactive transitions and a clean, testable architecture.
 
 ---
@@ -25,7 +27,16 @@
 - Unit tests demonstrating testable state and actions  
 - Modular, clean, and scalable code  
 
+### Architecture Diagram 🏗️
+
+```text
+[App] --> [Store] --> [View] --> [Actions/State]
+```
+
+This diagram shows the flow of state and actions through TCA, making the app highly testable and predictable.
+
 ---
+
 
 ## Requirements 📱
 
