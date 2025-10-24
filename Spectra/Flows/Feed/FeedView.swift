@@ -40,7 +40,7 @@ struct FeedView: View {
                 .font(.title)
                 .foregroundColor(.black)
             }
-            .padding(.top, 34.0)
+            .padding(.top, 36.0)
           }
           .frame(height: 100.0)
           .ignoresSafeArea()
