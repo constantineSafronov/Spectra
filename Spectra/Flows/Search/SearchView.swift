@@ -13,11 +13,11 @@ struct SearchView: View {
   let store: StoreOf<SearchFeature>
   @Namespace private var animationNamespace
   @EnvironmentObject var style: StyleService
-  private let modelContext: ModelContext
+  let dismissingThreshold = 150.0
+
   
-  init(store: StoreOf<SearchFeature>, modelContext: ModelContext) {
+  init(store: StoreOf<SearchFeature>) {
     self.store = store
-    self.modelContext = modelContext
   }
   
   var body: some View {
@@ -37,17 +37,9 @@ struct SearchView: View {
                 isLoading: viewStore.isLoading,
                 animationNamespace: animationNamespace,
                 onPhotoTap: { photo in
-                  let binding = Binding(
-                    get: { viewStore.selectedPhoto },
-                    set: { newValue in
-                      withAnimation(.spring(response: 0.55, dampingFraction: 0.85)) {
-                        if let newValue = newValue {
-                          viewStore.send(.photoSelected(newValue))
-                        }
-                      }
-                    }
-                  )
-                  binding.wrappedValue = photo
+                  _ = withAnimation(.smooth) {
+                    viewStore.send(.photoSelected(photo))
+                  }
                 },
                 onLoadMore: {
                   viewStore.send(.loadMore)
@@ -60,23 +52,26 @@ struct SearchView: View {
         }
         .zIndex(0)
         
-        if let photo = viewStore.selectedPhoto, viewStore.showDetail {
-          PhotoDetailView(
-            store: Store(
-              initialState: PhotoDetailFeature.State(photo: photo)
-            ) {
-              PhotoDetailFeature()
-              .dependency(\.photoDetailClient, PhotoDetailClient.live(context: modelContext))
-              .dependency(\.photoLibraryClient, PhotoLibraryClient.live())
-            },
-            namespace: animationNamespace,
-            isPresented: Binding(
-              get: { viewStore.showDetail },
-              set: { if !$0 { viewStore.send(.detailDismissed) } }
+          IfLetStore(
+            self.store.scope(
+              state: \.photoDetail,
+              action: \.photoDetail
             )
-          )
-          .zIndex(1)
-        }
+          ) { detailStore in
+            PhotoDetailView(
+              store: detailStore,
+              namespace: animationNamespace,
+              isPresented: Binding(
+                get: { viewStore.photoDetail != nil },
+                set: { isPresented in
+                  if !isPresented {
+                    viewStore.send(.detailDismissed)
+                  }
+                }
+              )
+            )
+            .zIndex(1)
+          }
       }
       .alert(
         viewStore.error ?? "",
@@ -129,12 +124,7 @@ struct SearchView: View {
 }
 
 #Preview {
-  let schema = Schema([])
-  let config = ModelConfiguration(schema: schema, isStoredInMemoryOnly: true)
-  let container = try! ModelContainer(for: schema, configurations: config)
-  let modelContext = ModelContext(container)
-  
-  return SearchView(
+  SearchView(
     store: Store(
       initialState: SearchFeature.State(
         searchText: "Nature",
@@ -160,7 +150,6 @@ struct SearchView: View {
       )
     ) {
       SearchFeature()
-    },
-    modelContext: modelContext
+    }
   )
 }

@@ -20,11 +20,17 @@ struct MainView: View {
   func contentView() -> some View {
     WithViewStore(store, observe: { $0 }) { viewStore in
       TabView {
+        let feedStore = Store(
+          initialState: FeedFeature.State(),
+          reducer: {
+            FeedFeature()
+              .dependency(\DependencyValues.photoDetailClient, PhotoDetailClient.live(context: modelContext))
+              .dependency(\.photoLibraryClient, PhotoLibraryClient.live())
+          }
+        )
+
         FeedView(
-          store: Store(
-            initialState: FeedFeature.State(),
-            reducer: { FeedFeature() }
-          ),
+          store: feedStore,
           modelContext: modelContext
         )
         .tabItem {
@@ -34,9 +40,12 @@ struct MainView: View {
         SearchView(
           store: Store(
             initialState: SearchFeature.State(),
-            reducer: { SearchFeature() }
-          ),
-          modelContext: modelContext
+            reducer: {
+              SearchFeature()
+                .dependency(\DependencyValues.photoDetailClient, PhotoDetailClient.live(context: modelContext))
+                .dependency(\.photoLibraryClient, PhotoLibraryClient.live())
+            }
+          )
         )
         .tabItem {
           Label(LocalizedStrings.TabBar.search.localized, systemImage: "magnifyingglass")

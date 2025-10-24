@@ -18,9 +18,7 @@ struct SearchFeature {
     var error: String?
     var currentPage = 1
     var showsError = false
-    
-    var selectedPhoto: Photo?
-    var showDetail = false
+    var photoDetail: PhotoDetailFeature.State?
   }
   
   @Dependency(\.unsplashClient) var unsplashClient
@@ -33,6 +31,7 @@ struct SearchFeature {
     case photoSelected(Photo)
     case detailDismissed
     case errorDismissed
+    case photoDetail(PhotoDetailFeature.Action)
   }
   
   var body: some Reducer<State, Action> {
@@ -94,13 +93,19 @@ struct SearchFeature {
         return .none
         
       case let .photoSelected(photo):
-        state.selectedPhoto = photo
-        state.showDetail = true
+        state.photoDetail = PhotoDetailFeature.State(photo: photo)
         return .none
         
+      case .photoDetail(let childAction):
+        switch childAction {
+        case .dismissRequested:
+          state.photoDetail = nil
+          
+          return .none
+        default:
+          return .none
+        }
       case .detailDismissed:
-        state.showDetail = false
-        state.selectedPhoto = nil
         return .none
         
       case .errorDismissed:
@@ -108,6 +113,9 @@ struct SearchFeature {
         state.error = nil
         return .none
       }
+    }
+    .ifLet(\.photoDetail, action: \.photoDetail) {
+        PhotoDetailFeature()
     }
   }
 }

@@ -16,17 +16,16 @@ struct FeedFeature {
     var isLoading = false
     var error: String?
     var showsError = false
-    var selectedPhoto: Photo?
-    var showDetail = false
     var categoryStates: [Category: CategoryState] = [:]
+    var photoDetail: PhotoDetailFeature.State?
   }
-  
+
   struct CategoryState: Equatable {
     let category: Category
     let photos: [Photo]
     let page: Int
   }
-  
+
   enum Action: Equatable {
     case onAppear
     case categorySelected(Category)
@@ -36,10 +35,11 @@ struct FeedFeature {
     case photoSelected(Photo)
     case detailDismissed
     case errorDismissed
+    case photoDetail(PhotoDetailFeature.Action)
   }
-  
+
   @Dependency(\.unsplashClient) var unsplashClient
-  
+
   var body: some Reducer<State, Action> {
     Reduce { state, action in
       switch action {
@@ -53,10 +53,10 @@ struct FeedFeature {
           }
         }
         return .none
-        
+
       case let .categorySelected(category):
         state.selectedCategory = category
-        
+
         if let categoryState = state.categoryStates[category] {
           state.photoList = categoryState.photos
         } else {
@@ -69,41 +69,41 @@ struct FeedFeature {
           }
         }
         return .none
-        
+
       case let .feedResponse(.success(response)):
         state.isLoading = false
         state.photoList = response.results
-        
+
         state.categoryStates[state.selectedCategory] = CategoryState(
           category: state.selectedCategory,
           photos: response.results,
           page: 1
         )
         return .none
-        
+
       case let .feedResponse(.failure(error)):
         state.isLoading = false
         state.error = error.localizedDescription
         state.showsError = true
         return .none
-        
+
       case .loadMore:
         guard !state.isLoading, let currentState = state.categoryStates[state.selectedCategory] else {
           return .none
         }
-        
+
         state.isLoading = true
         let nextPage = currentState.page + 1
-        
+
         return .run { [category = state.selectedCategory] send in
           await send(.loadMoreResponse(await TaskResult {
             try await unsplashClient.search(category.rawValue, nextPage)
           }))
         }
-        
+
       case let .loadMoreResponse(.success(response)):
         state.isLoading = false
-        
+
         let updatedPhotos = state.photoList + response.results
         state.photoList = updatedPhotos
         state.categoryStates[state.selectedCategory] = CategoryState(
@@ -112,29 +112,39 @@ struct FeedFeature {
           page: (state.categoryStates[state.selectedCategory]?.page ?? 1) + 1
         )
         return .none
-        
+
       case let .loadMoreResponse(.failure(error)):
         state.isLoading = false
         state.error = error.localizedDescription
         state.showsError = true
         return .none
-        
+
       case let .photoSelected(photo):
-        state.selectedPhoto = photo
-        state.showDetail = true
+        state.photoDetail = PhotoDetailFeature.State(photo: photo)
         return .none
-        
+
       case .detailDismissed:
-        state.showDetail = false
-        state.selectedPhoto = nil
+        state.photoDetail = nil
         return .none
-        
+
       case .errorDismissed:
         state.showsError = false
         state.error = nil
         return .none
+
+      case .photoDetail(let childAction):
+        switch childAction {
+        case .dismissRequested:
+          state.photoDetail = nil
+          
+          return .none
+        default:
+          return .none
+        }
       }
     }
+    .ifLet(\.photoDetail, action: \.photoDetail) {
+        PhotoDetailFeature()
+    }
   }
-  
 }

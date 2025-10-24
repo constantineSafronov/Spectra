@@ -58,17 +58,9 @@ struct FeedView: View {
             isLoading: viewStore.isLoading,
             animationNamespace: animationNamespace,
             onPhotoTap: { photo in
-              let binding = Binding(
-                get: { viewStore.selectedPhoto },
-                set: { newValue in
-                  withAnimation(.spring(response: 0.55, dampingFraction: 0.85)) {
-                    if let newValue = newValue {
-                      viewStore.send(.photoSelected(newValue))
-                    }
-                  }
-                }
-              )
-              binding.wrappedValue = photo
+              _ = withAnimation(.smooth) {
+                viewStore.send(.photoSelected(photo))
+              }
             },
             onLoadMore: {
               viewStore.send(.loadMore)
@@ -90,23 +82,25 @@ struct FeedView: View {
             .transition(.opacity)
             .zIndex(2)
         }
-        
-        if let photo = viewStore.selectedPhoto, viewStore.showDetail {
-            PhotoDetailView(
-                store: Store(
-                    initialState: PhotoDetailFeature.State(photo: photo)
-                ) {
-                    PhotoDetailFeature()
-                    .dependency(\.photoDetailClient, PhotoDetailClient.live(context: modelContext))
-                    .dependency(\.photoLibraryClient, PhotoLibraryClient.live())
-                },
-                namespace: animationNamespace,
-                isPresented: Binding(
-                    get: { viewStore.showDetail },
-                    set: { if !$0 { viewStore.send(.detailDismissed) } }
-                )
+        IfLetStore(
+          self.store.scope(
+            state: \.photoDetail,
+            action: \.photoDetail
+          )
+        ) { detailStore in
+          PhotoDetailView(
+            store: detailStore,
+            namespace: animationNamespace,
+            isPresented: Binding(
+              get: { viewStore.photoDetail != nil },
+              set: { isPresented in
+                if !isPresented {
+                  viewStore.send(.detailDismissed)
+                }
+              }
             )
-            .zIndex(1)
+          )
+          .zIndex(1)
         }
       }
       .alert(

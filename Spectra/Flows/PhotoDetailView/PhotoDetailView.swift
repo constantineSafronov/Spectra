@@ -14,9 +14,9 @@ import ComposableArchitecture
 struct PhotoDetailView: View {
   let store: StoreOf<PhotoDetailFeature>
   let namespace: Namespace.ID
+  let dismissingThreshold = 150.0
   @Binding var isPresented: Bool
   
-  @State private var onDisappear: Bool = false
   @EnvironmentObject var style: StyleService
   
   init(
@@ -36,7 +36,7 @@ struct PhotoDetailView: View {
           .ignoresSafeArea()
         
         let imageView = Group {
-          if onDisappear {
+          if viewStore.state.onDismiss {
             KFImage(URL(string: viewStore.photo.urls.small))
               .resizable()
               .scaledToFit()
@@ -62,11 +62,15 @@ struct PhotoDetailView: View {
               }
               .onEnded { value in
                 viewStore.send(.dragEnded(value.translation.height))
-                if value.translation.height > 150 {
-                  onDisappear = true
-                  withAnimation(.bouncy) {
-                    isPresented = false
+                if value.translation.height > dismissingThreshold {
+                  DispatchQueue.main.async {
+                    _ = withAnimation(.easeOut) {
+                      viewStore.send(.dismissRequested)
+                    }
                   }
+                }
+                else {
+                  viewStore.send(.dragChanged(0))
                 }
               }
           )
@@ -77,9 +81,8 @@ struct PhotoDetailView: View {
           HStack {
             Spacer()
             Button {
-              onDisappear = true
-              withAnimation(.bouncy) {
-                isPresented = false
+              _ = withAnimation(.easeOut) {
+                viewStore.send(.dismissRequested)
               }
             } label: {
               Image(systemName: "xmark.circle.fill")
@@ -135,7 +138,7 @@ struct PhotoDetailView: View {
         viewStore.send(.onAppear)
       }
       .onDisappear {
-        isPresented = false
+        viewStore.send(.dismissRequested)
       }
     }
   }
