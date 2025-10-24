@@ -40,9 +40,9 @@ struct FeedView: View {
                 .font(.title)
                 .foregroundColor(.black)
             }
-            .padding(.top, 36.0)
+            .padding(.top, 48.0)
           }
-          .frame(height: 100.0)
+          .frame(height: 108.0)
           .ignoresSafeArea()
           
           CategoryPicker(
