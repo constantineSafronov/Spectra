@@ -8,8 +8,7 @@
 import Foundation
 
 enum APIConfig {
-    static let unsplashClientID = "FobMRrDUXa4MvEjfKmVogV9HGswsopb4uteXkDAoToM"
-  
+    static let unsplashClientID = ""
 }
 
 extension URLRequest {
