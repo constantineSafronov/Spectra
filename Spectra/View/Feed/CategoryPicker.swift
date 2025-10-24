@@ -16,7 +16,7 @@ struct CategoryPicker: View {
   var body: some View {
     ZStack {
       ScrollView(.horizontal, showsIndicators: false) {
-        HStack(spacing: 16.0) {
+        HStack(spacing: 8.0) {
           ForEach(Category.allCases, id: \.self) { category in
             Button {
               self.selectedCategory = category

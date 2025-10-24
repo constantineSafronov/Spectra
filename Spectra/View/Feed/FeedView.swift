@@ -46,6 +46,7 @@ struct FeedView: View {
         CategoryPicker(
           selectedCategory: $model.selectedCategory
         )
+        .padding(.leading, 8.0)
         MasonryGridView(
           photos: $model.photoList,
           isLoadingNeeded: $model.isLoadingNeeded,

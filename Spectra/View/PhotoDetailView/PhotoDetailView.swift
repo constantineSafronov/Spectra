@@ -108,6 +108,7 @@ struct PhotoDetailView: View {
           .disabled(isSaving)
           
           Button {
+            UIImpactFeedbackGenerator(style: .soft).impactOccurred()
             if let favoritePhoto = favorites.first(where: { $0.id == photo.id }) {
               modelContext.delete(favoritePhoto)
             } else {

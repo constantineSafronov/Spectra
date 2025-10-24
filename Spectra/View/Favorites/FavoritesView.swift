@@ -82,6 +82,7 @@ struct FavoritesRowView: View {
           
           VStack(spacing: 12) {
             Button {
+              UIImpactFeedbackGenerator(style: .soft).impactOccurred()
               viewStore.send(.deletePhoto(photo))
             } label: {
               Image(systemName: "heart.fill")
