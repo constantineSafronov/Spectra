@@ -63,6 +63,7 @@ final class FavoritesFeatureTests: XCTestCase {
     }
     
     await store.receive(.favoritesResponse([photo1.toDTO(), photo2.toDTO()]), timeout: .seconds(5)) {
+      
       $0.favorites = [photo1.toDTO(), photo2.toDTO()]
     }
   }

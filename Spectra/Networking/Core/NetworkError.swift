@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum NetworkError: Error, LocalizedError {
+enum NetworkError: Error, LocalizedError, Equatable {
   case invalidResponse
   case invalidStatusCode(Int)
   case decodingError(Error)
@@ -27,6 +27,10 @@ enum NetworkError: Error, LocalizedError {
     case .transportError(let error):
       return "Transport error: \(error.localizedDescription)"
     }
+  }
+  
+  static func == (lhs: NetworkError, rhs: NetworkError) -> Bool {
+    lhs.errorDescription == rhs.errorDescription
   }
   
 }

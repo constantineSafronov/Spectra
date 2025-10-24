@@ -20,15 +20,27 @@ struct MainView: View {
   func contentView() -> some View {
     WithViewStore(store, observe: { $0 }) { viewStore in
       TabView {
-        FeedView(model: FeedModel(), modelContext: modelContext)
-          .tabItem {
+        FeedView(
+            store: Store(
+                initialState: FeedFeature.State(),
+                reducer: { FeedFeature() }
+            ),
+            modelContext: modelContext
+        )
+        .tabItem {
             Label(LocalizedStrings.TabBar.feed.localized, systemImage: "photo.on.rectangle")
-          }
+        }
         
-        SearchView(model: SearchModel(), modelContext: modelContext)
-          .tabItem {
+        SearchView(
+            store: Store(
+                initialState: SearchFeature.State(),
+                reducer: { SearchFeature() }
+            ),
+            modelContext: modelContext
+        )
+        .tabItem {
             Label(LocalizedStrings.TabBar.search.localized, systemImage: "magnifyingglass")
-          }
+        }
         
         FavoritesView(
           store: Store(

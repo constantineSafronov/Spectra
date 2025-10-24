@@ -8,6 +8,19 @@
 import SwiftUI
 import UIKit
 
+enum Category: String, CaseIterable, Identifiable {
+  case backgrounds
+  case architecture
+  case vibe
+  case nightlife
+  case cyberpunk
+  case nature
+  case city
+  case people
+  
+  var id: String { rawValue }
+}
+
 struct CategoryPicker: View {
   
   @Binding var selectedCategory: Category
@@ -58,7 +71,6 @@ struct CategoryPicker: View {
 }
 
 // MARK: - Preview
-
 #Preview {
   CategoryPicker(selectedCategory: .constant(Category.architecture))
     .padding()

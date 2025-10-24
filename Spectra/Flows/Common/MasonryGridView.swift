@@ -11,12 +11,13 @@ import Kingfisher
 struct MasonryGridView: View {
   private let loadingTriggerArea: CGFloat = 100
   
-  @Binding var photos: [Photo]
-  @Binding var isLoadingNeeded: Bool
+  let photos: [Photo]
+  let isLoading: Bool
   @EnvironmentObject var style: StyleService
   
   var animationNamespace: Namespace.ID
   var onPhotoTap: (Photo) -> Void
+  var onLoadMore: () -> Void
   
   var body: some View {
     GeometryReader { geometry in
@@ -45,31 +46,32 @@ struct MasonryGridView: View {
             }
           }
         }
-        Text(LocalizedStrings.Common.fetching.localized)
-          .foregroundColor(.text)
-          .font(style.titleFont)
-          .padding(.top, 12)
-          .background(
-            GeometryReader { geo in
-              Color.clear
-                .preference(
-                  key: ScrollOffsetKey.self,
-                  value: geo.frame(in: .global).minY)
+        
+        if !photos.isEmpty {
+          Text(LocalizedStrings.Common.fetching.localized)
+            .foregroundColor(.text)
+            .font(style.titleFont)
+            .padding(.top, 12)
+            .background(
+              GeometryReader { geo in
+                Color.clear
+                  .preference(
+                    key: ScrollOffsetKey.self,
+                    value: geo.frame(in: .global).minY)
+              }
+            )
+            .onPreferenceChange(ScrollOffsetKey.self) { minY in
+              let screenHeight = geometry.frame(in: .global).height
+              if minY < screenHeight + loadingTriggerArea, !isLoading {
+                onLoadMore()
+              }
             }
-          )
-          .onPreferenceChange(ScrollOffsetKey.self) { minY in
-            let screenHeight = geometry.frame(in: .global).height
-            if minY < screenHeight + loadingTriggerArea, !isLoadingNeeded {
-              isLoadingNeeded = true
-            }
-          }
-          .opacity(photos.isEmpty ? 0 : 1)
+        }
       }
     }
   }
   
   // MARK: - Masonry logic
-  
   private func leftColumn(columnWidth: CGFloat) -> [Photo] {
     distributePhotos(columnWidth: columnWidth).0
   }
@@ -105,7 +107,7 @@ struct MasonryGridView: View {
   
 }
 
-private struct ScrollOffsetKey: PreferenceKey {
+struct ScrollOffsetKey: PreferenceKey {
   static var defaultValue: CGFloat = 0
   static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
     value = nextValue()
