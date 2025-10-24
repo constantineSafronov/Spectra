@@ -62,16 +62,20 @@ struct SearchView: View {
         
         if let photo = viewStore.selectedPhoto, viewStore.showDetail {
           PhotoDetailView(
-            photo: photo,
+            store: Store(
+              initialState: PhotoDetailFeature.State(photo: photo)
+            ) {
+              PhotoDetailFeature()
+              .dependency(\.photoDetailClient, PhotoDetailClient.live(context: modelContext))
+              .dependency(\.photoLibraryClient, PhotoLibraryClient.live())
+            },
             namespace: animationNamespace,
-            modelContext: modelContext,
             isPresented: Binding(
               get: { viewStore.showDetail },
               set: { if !$0 { viewStore.send(.detailDismissed) } }
             )
           )
           .zIndex(1)
-          .transition(.opacity)
         }
       }
       .alert(

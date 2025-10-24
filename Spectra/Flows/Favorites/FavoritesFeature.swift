@@ -23,7 +23,7 @@ struct FavoritesFeature {
     case favoritesResponse([FavoritePhotoDTO])
     case deletePhoto(FavoritePhotoDTO)
     case saveToLibrary(FavoritePhotoDTO)
-    case saveFinished(SaveResult)
+    case saveFinished(PhotoLibraryClient.SaveResult)
     case dismissAlert
     
     enum SaveResult: Equatable {
@@ -33,6 +33,7 @@ struct FavoritesFeature {
   }
   
   @Dependency(\.favoritePhotoClient) var favoriteClient
+  @Dependency(\.photoLibraryClient) var photoLibraryClient
   
   var body: some Reducer<State, Action> {
     Reduce { state, action in
@@ -58,7 +59,7 @@ struct FavoritesFeature {
       case .saveToLibrary(let photo):
         state.isSaving = true
         return .run { send in
-          let result = await favoriteClient.saveToLibrary(photo)
+          let result = await photoLibraryClient.saveToLibrary(URL(string: photo.fullURL))
           await send(.saveFinished(result))
         }
         

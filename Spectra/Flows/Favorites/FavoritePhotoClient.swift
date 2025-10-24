@@ -27,7 +27,6 @@ enum PhotoLibraryError: Error, LocalizedError {
 struct FavoritePhotoClient {
   var fetchFavorites: @Sendable () async throws -> [FavoritePhotoDTO]
   var delete: @Sendable (FavoritePhotoDTO) async throws -> Void
-  var saveToLibrary: @Sendable (FavoritePhotoDTO) async -> FavoritesFeature.Action.SaveResult
 }
 
 extension DependencyValues {
@@ -44,14 +43,11 @@ private enum FavoritePhotoClientKey: DependencyKey {
 extension FavoritePhotoClient {
   static let fake = FavoritePhotoClient(
     fetchFavorites: { [] },
-    delete: { _ in },
-    saveToLibrary: { _ in
-        .failure("No client configured")
-    }
+    delete: { _ in }
   )
 }
 
-private class WeakContextRef {
+class WeakContextRef {
   weak var context: ModelContext?
   
   init(context: ModelContext) {
@@ -94,37 +90,6 @@ extension FavoritePhotoClient {
           } catch {
             print("Error deleting photo: \(error)")
           }
-        }
-      },
-      saveToLibrary: { photo in
-        guard let url = URL(string: photo.fullURL) else {
-          return .failure(PhotoLibraryError.invalidURL.localizedDescription)
-        }
-        do {
-          let (data, _) = try await URLSession.shared.data(from: url)
-          guard let image = UIImage(data: data) else {
-            return .failure(PhotoLibraryError.imageLoadingGenericError.localizedDescription)
-          }
-          
-          let status = PHPhotoLibrary.authorizationStatus(for: .addOnly)
-          if status == .notDetermined {
-            _ = await PHPhotoLibrary.requestAuthorization(for: .addOnly)
-          }
-          
-          return await withCheckedContinuation { continuation in
-            PHPhotoLibrary.shared().performChanges({
-              PHAssetChangeRequest.creationRequestForAsset(from: image)
-            }) { success, error in
-              if success {
-                continuation.resume(returning: .success(LocalizedStrings.Common.savePhotoMessage.localized))
-              } else {
-                let errorMessage = error?.localizedDescription ?? PhotoLibraryError.imageLoadingGenericError.localizedDescription
-                continuation.resume(returning: .failure(errorMessage))
-              }
-            }
-          }
-        } catch {
-          return .failure(error.localizedDescription)
         }
       }
     )

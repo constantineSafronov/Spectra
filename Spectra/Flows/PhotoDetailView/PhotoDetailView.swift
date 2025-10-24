@@ -9,202 +9,135 @@ import SwiftUI
 import PhotosUI
 import Kingfisher
 import SwiftData
+import ComposableArchitecture
 
 struct PhotoDetailView: View {
-  
-  let photo: Photo
+  let store: StoreOf<PhotoDetailFeature>
   let namespace: Namespace.ID
-  let modelContext: ModelContext
-  private let dismissThreshold: CGFloat = 150
-  @State private var onDisappear: Bool = false
-  @State private var dragOffset: CGFloat = 0
-  @State private var isSaving = false
-  @State private var showSaveResult = false
-  @State private var saveResultMessage = ""
-  
   @Binding var isPresented: Bool
-  @Query private var favorites: [FavoritePhoto]
+  
+  @State private var onDisappear: Bool = false
   @EnvironmentObject var style: StyleService
   
+  init(
+    store: StoreOf<PhotoDetailFeature>,
+    namespace: Namespace.ID,
+    isPresented: Binding<Bool>
+  ) {
+    self.store = store
+    self.namespace = namespace
+    self._isPresented = isPresented
+  }
+  
   var body: some View {
-    ZStack(alignment: .topLeading) {
-      Color.background
-        .ignoresSafeArea()
-      
-      let imageView = Group {
-        if onDisappear {
-          KFImage(URL(string: photo.urls.small))
-            .resizable()
-            .scaledToFit()
-            .matchedGeometryEffect(id: photo.id, in: namespace)
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .clipped()
-        } else {
-          KFImage(URL(string: photo.urls.small))
-            .resizable()
-            .scaledToFit()
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .clipped()
-            .matchedGeometryEffect(id: photo.id, in: namespace)
-        }
-      }
-        .offset(y: dragOffset)
-        .gesture(
-          DragGesture()
-            .onChanged { value in
-              if value.translation.height > 0 {
-                dragOffset = value.translation.height
-              }
-            }
-            .onEnded { value in
-              if dragOffset > dismissThreshold {
-                onDisappear = true
-                withAnimation(.bouncy) {
-                  isPresented = false
-                }
-              } else {
-                withAnimation(.spring()) {
-                  dragOffset = 0
-                }
-              }
-            }
-        )
-      
-      imageView
-      
-      VStack {
-        HStack {
-          Spacer()
-          Button {
-            onDisappear = true
-            withAnimation(.bouncy) {
-              isPresented = false
-            }
-          } label: {
-            Image(systemName: "xmark.circle.fill")
+    WithViewStore(store, observe: { $0 }) { viewStore in
+      ZStack(alignment: .topLeading) {
+        Color.background
+          .ignoresSafeArea()
+        
+        let imageView = Group {
+          if onDisappear {
+            KFImage(URL(string: viewStore.photo.urls.small))
               .resizable()
               .scaledToFit()
-              .frame(width: 30, height: 30)
-              .symbolRenderingMode(.hierarchical)
-              .foregroundColor(.gray)
-              .padding(8)
-              .background(.ultraThinMaterial)
-              .clipShape(Circle())
+              .matchedGeometryEffect(id: viewStore.photo.id, in: namespace)
+              .frame(maxWidth: .infinity, maxHeight: .infinity)
+              .clipped()
+          } else {
+            KFImage(URL(string: viewStore.photo.urls.small))
+              .resizable()
+              .scaledToFit()
+              .frame(maxWidth: .infinity, maxHeight: .infinity)
+              .matchedGeometryEffect(id: viewStore.photo.id, in: namespace)
+              .clipped()
           }
-          .padding()
         }
-        Spacer()
+          .offset(y: viewStore.dragOffset)
+          .gesture(
+            DragGesture()
+              .onChanged { value in
+                if value.translation.height > 0 {
+                  viewStore.send(.dragChanged(value.translation.height))
+                }
+              }
+              .onEnded { value in
+                viewStore.send(.dragEnded(value.translation.height))
+                if value.translation.height > 150 {
+                  onDisappear = true
+                  withAnimation(.bouncy) {
+                    isPresented = false
+                  }
+                }
+              }
+          )
         
-        HStack(spacing: 20) {
-          Button {
-            savePhotoToLibrary()
-          } label: {
-            Label(
-              LocalizedStrings.Common.save.localized.capitalized,
-              systemImage: isSaving ? "arrow.down.circle.fill" : "square.and.arrow.down"
-            )
-            .font(style.controlsFont)
-          }
-          .disabled(isSaving)
-          
-          Button {
-            UIImpactFeedbackGenerator(style: .soft).impactOccurred()
-            if let favoritePhoto = favorites.first(where: { $0.id == photo.id }) {
-              modelContext.delete(favoritePhoto)
-            } else {
-              modelContext.insert(FavoritePhoto(with: photo))
+        imageView
+        
+        VStack {
+          HStack {
+            Spacer()
+            Button {
+              onDisappear = true
+              withAnimation(.bouncy) {
+                isPresented = false
+              }
+            } label: {
+              Image(systemName: "xmark.circle.fill")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 30, height: 30)
+                .symbolRenderingMode(.hierarchical)
+                .foregroundColor(.gray)
+                .padding(8)
+                .background(.ultraThinMaterial)
+                .clipShape(Circle())
             }
-            try? modelContext.save()
-          } label: {
-            Label(LocalizedStrings.Common.favorite.localized.capitalized, systemImage: favorites.contains(where: { $0.id == photo.id }) ? "heart.fill" : "heart")
-              .font(style.controlsFont)
+            .padding()
           }
+          Spacer()
+          
+          HStack(spacing: 20) {
+            Button {
+              viewStore.send(.saveToLibrary)
+            } label: {
+              Label(
+                LocalizedStrings.Common.save.localized.capitalized,
+                systemImage: viewStore.isSaving ? "arrow.down.circle.fill" : "square.and.arrow.down"
+              )
+              .font(style.controlsFont)
+            }
+            .disabled(viewStore.isSaving)
+            
+            Button {
+              viewStore.send(.toggleFavorite)
+            } label: {
+              Label(
+                LocalizedStrings.Common.favorite.localized.capitalized,
+                systemImage: viewStore.isFavorite ? "heart.fill" : "heart"
+              )
+              .font(style.controlsFont)
+            }
+          }
+          .padding(.vertical, 24)
+          .foregroundColor(.accessory)
         }
-        .padding(.vertical, 24)
-        .foregroundColor(.accessory)
+      }
+      .alert(
+        viewStore.saveResultMessage ?? "",
+        isPresented: viewStore.binding(
+          get: \.showsSaveResult,
+          send: .dismissSaveResult
+        )
+      ) {
+        Button(LocalizedStrings.Common.ok.localized.uppercased(), role: .cancel) {}
+      }
+      .onAppear {
+        viewStore.send(.onAppear)
+      }
+      .onDisappear {
+        isPresented = false
       }
     }
-    .alert(saveResultMessage, isPresented: $showSaveResult) {
-      Button(LocalizedStrings.Common.ok.localized.uppercased(), role: .cancel) {}
-    }
-    .onDisappear {
-      isPresented = false
-    }
   }
   
-  // MARK: - Save photo logic
-  private func savePhotoToLibrary() {
-    guard let url = URL(string: photo.urls.full) else { return }
-    isSaving = true
-    
-    Task {
-      do {
-        let (data, _) = try await URLSession.shared.data(from: url)
-        if let image = UIImage(data: data) {
-          await saveToPhotos(image)
-          saveResultMessage = LocalizedStrings.Common.savePhotoMessage.localized
-        } else {
-          saveResultMessage = LocalizedStrings.Common.savingPhotoFailureMessage.localized
-        }
-      } catch {
-        saveResultMessage = "\(LocalizedStrings.Common.error.localized.capitalized): \(error.localizedDescription)"
-      }
-      
-      isSaving = false
-      showSaveResult = true
-    }
-  }
-  
-  @MainActor
-  private func saveToPhotos(_ image: UIImage) async {
-    let status = PHPhotoLibrary.authorizationStatus(for: .addOnly)
-    
-    if status == .notDetermined {
-      _ = await PHPhotoLibrary.requestAuthorization(for: .addOnly)
-    }
-    
-    await withCheckedContinuation { continuation in
-      UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
-      continuation.resume()
-    }
-  }
-}
-
-// MARK: - Preview
-
-#Preview("PhotoDetailView") {
-  struct PhotoDetailPreview: View {
-    @State private var isPresented = true
-    @Namespace private var namespace
-    
-    let mockPhoto = Photo(
-      id: "preview-photo",
-      altDescription:"Beautiful landscape with mountains and lake during golden hour sunset",
-      urls: Urls(
-        thumb: "",
-        small: "https://images.unsplash.com/photo-1541963463532-d68292c34b19",
-        regular: "",
-        full: "https://images.unsplash.com/photo-1541963463532-d68292c34b19"
-      ),
-      width: 3000,
-      height: 4000,
-      user: User(id: "", name: "John Photographer", username: "John")
-    )
-    
-    let modelContext = try! ModelContainer(
-      for: FavoritePhoto.self,
-      configurations: ModelConfiguration(isStoredInMemoryOnly: true)
-    ).mainContext
-    
-    var body: some View {
-      PhotoDetailView(
-        photo: mockPhoto,
-        namespace: namespace,
-        modelContext: modelContext,
-        isPresented: $isPresented
-      )
-    }
-  }
-  
-  return PhotoDetailPreview()
 }
