@@ -8,8 +8,8 @@
 import Foundation
 
 enum APIConfig {
-  #warning("Don't forget to replace Unsplash Client ID before release!")
-  static let unsplashClientID = ""
+  #warning("Don't forget to replace Unsplash Client ID before launching the app!")
+  static let unsplashClientID = "YOUR_UNSPLASH_CLIENT_ID"
 }
 
 extension URLRequest {
