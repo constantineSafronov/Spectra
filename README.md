@@ -6,26 +6,28 @@
 
 ---
 
-## Features ✨
+## ✨ Features
 
-- **Search photos** via Unsplash API  
-- **Full-screen photo view** with custom transitions using `matchedGeometryEffect`  
-- **Favorites** powered by **SwiftData**  
-- **Customizable UI**: fonts, optional photo description, and author name  
-- **Localization-ready** (currently English)  
-- **Unit tests** for core business logic  
-- **Clean architecture** with **TCA** + **Combine** for predictable state management  
+- 🔍 Search photos via Unsplash API  
+- 🧱 **Masonry Grid Layout for dynamic, Pinterest-like photo feed**  
+- 🔄 Smooth fullscreen transitions using `matchedGeometryEffect`  
+- ❤️ Save photos to Favorites using SwiftData  
+- 🎯 Built with **The Composable Architecture (TCA)** + Navigation + Combine  
+- 🧪 Unit Tests included  
+- 🎨 Customizable UI: toggle photo description & author, change app fonts  
+- 🌐 Localization ready (currently English only)
 
 ---
+
 
 ## Technical Highlights ⚙️
 
 - SwiftUI + TCA architecture  
 - Navigation handled via TCA  
-- Smooth animations and custom transitions  
+- Smooth animations and custom transitions
+- Masonry Grid layout
 - Combine for reactive state updates  
 - Unit tests demonstrating testable state and actions  
-- Modular, clean, and scalable code  
 
 ### Architecture Diagram 🏗️
 
