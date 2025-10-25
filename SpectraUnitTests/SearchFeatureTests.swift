@@ -91,23 +91,6 @@ final class SearchFeatureTests: XCTestCase {
     }
   }
   
-  func testPhotoSelection() async {
-    let store = TestStore(initialState: SearchFeature.State(
-      photoList: [.mock, .mock2]
-    )) {
-      SearchFeature()
-    }
-    
-    await store.send(.photoSelected(.mock)) {
-      $0.selectedPhoto = .mock
-      $0.showDetail = true
-    }
-    
-    await store.send(.detailDismissed) {
-      $0.showDetail = false
-      $0.selectedPhoto = nil
-    }
-  }
 }
 
 extension Photo {

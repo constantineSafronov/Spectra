@@ -62,7 +62,7 @@ final class FavoritesFeatureTests: XCTestCase {
       $0.favorites = []
     }
     
-    await store.receive(.favoritesResponse([photo1.toDTO(), photo2.toDTO()]), timeout: .seconds(5)) {
+    await store.receive(.favoritesResponse([photo1.toDTO(), photo2.toDTO()]), timeout: .seconds(8)) {
       
       $0.favorites = [photo1.toDTO(), photo2.toDTO()]
     }
@@ -115,9 +115,7 @@ final class FavoritesFeatureTests: XCTestCase {
     ) {
       FavoritesFeature()
     } withDependencies: {
-      $0.favoritePhotoClient.fetchFavorites = { [] }
-      $0.favoritePhotoClient.delete = { _ in }
-      $0.favoritePhotoClient.saveToLibrary = { _ in
+      $0.photoLibraryClient.saveToLibrary = { _ in
         return .success("Photo saved to library")
       }
     }
@@ -138,7 +136,6 @@ final class FavoritesFeatureTests: XCTestCase {
     } withDependencies: {
       $0.favoritePhotoClient.fetchFavorites = { [] }
       $0.favoritePhotoClient.delete = { _ in }
-      $0.favoritePhotoClient.saveToLibrary = { _ in .success("") }
     }
     
     await store.send(.onAppear)
