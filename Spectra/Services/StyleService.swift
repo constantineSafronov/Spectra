@@ -57,41 +57,5 @@ final class StyleService: ObservableObject {
   var pickerItemFont: Font {
     useTechnologyStyle ? Font.custom("Technology-Bold", size: 15) : Font.subheadline.bold()
   }
-  
-  //  private func applyAppearance(isTech: Bool) {
-  //    setTabBarAppearance(isDefault: !isTech)
-  //
-  //    DispatchQueue.main.async {
-  //      UIApplication.shared.connectedScenes
-  //        .compactMap { $0 as? UIWindowScene }
-  //        .flatMap { $0.windows }
-  //        .forEach { window in
-  //          print("reload")
-  //          window.rootViewController?.view.setNeedsLayout()
-  //          window.rootViewController?.view.layoutIfNeeded()
-  //        }
-  //    }
-  //  }
-  //
-  //  private func setTabBarAppearance(isDefault: Bool = false) {
-  //    print("setTabBarAppearance \(isDefault)")
-  //    if isDefault {
-  //      let appearance = UITabBarAppearance()
-  //      appearance.configureWithDefaultBackground()
-  //      UITabBar.appearance().standardAppearance = appearance
-  //    } else {
-  //      let appearance = UITabBarAppearance()
-  //      appearance.stackedLayoutAppearance.normal.titleTextAttributes = [
-  //        .font: UIFont(name: "Technology-Bold", size: 12)!
-  //      ]
-  //      appearance.stackedLayoutAppearance.selected.titleTextAttributes = [
-  //        .font: UIFont(name: "Technology-Bold", size: 12)!
-  //      ]
-  //
-  //      UITabBar.appearance().standardAppearance = appearance
-  //    }
-  //  }
-  
+    
 }
-
-
