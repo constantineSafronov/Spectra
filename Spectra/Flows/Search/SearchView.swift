@@ -14,7 +14,7 @@ struct SearchView: View {
   @Namespace private var animationNamespace
   @EnvironmentObject var style: StyleService
   let dismissingThreshold = 150.0
-
+  
   
   init(store: StoreOf<SearchFeature>) {
     self.store = store
@@ -52,26 +52,26 @@ struct SearchView: View {
         }
         .zIndex(0)
         
-          IfLetStore(
-            self.store.scope(
-              state: \.photoDetail,
-              action: \.photoDetail
-            )
-          ) { detailStore in
-            PhotoDetailView(
-              store: detailStore,
-              namespace: animationNamespace,
-              isPresented: Binding(
-                get: { viewStore.photoDetail != nil },
-                set: { isPresented in
-                  if !isPresented {
-                    viewStore.send(.detailDismissed)
-                  }
+        IfLetStore(
+          self.store.scope(
+            state: \.photoDetail,
+            action: \.photoDetail
+          )
+        ) { detailStore in
+          PhotoDetailView(
+            store: detailStore,
+            namespace: animationNamespace,
+            isPresented: Binding(
+              get: { viewStore.photoDetail != nil },
+              set: { isPresented in
+                if !isPresented {
+                  viewStore.send(.detailDismissed)
                 }
-              )
+              }
             )
-            .zIndex(1)
-          }
+          )
+          .zIndex(1)
+        }
       }
       .alert(
         viewStore.error ?? "",
