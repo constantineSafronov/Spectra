@@ -67,7 +67,6 @@ struct CategoryPicker: View {
       }
     }
   }
-  
 }
 
 // MARK: - Preview

@@ -18,7 +18,6 @@ enum LocalizedStrings {
     var localized: String {
       NSLocalizedString(rawValue, bundle: .main, comment: "")
     }
-    
   }
     
   enum Common: String {
@@ -34,7 +33,6 @@ enum LocalizedStrings {
     var localized: String {
       NSLocalizedString(rawValue, bundle: .main, comment: "")
     }
-    
   }
   
   enum Search: String {
@@ -43,7 +41,6 @@ enum LocalizedStrings {
     var localized: String {
       NSLocalizedString(rawValue, bundle: .main, comment: "")
     }
-    
   }
   
   enum Favorites: String {
@@ -52,7 +49,6 @@ enum LocalizedStrings {
     var localized: String {
       NSLocalizedString(rawValue, bundle: .main, comment: "")
     }
-    
   }
   
   enum Settings: String {
@@ -74,7 +70,5 @@ enum LocalizedStrings {
     var localized: String {
       NSLocalizedString(rawValue, bundle: .main, comment: "")
     }
-    
   }
-  
 }

@@ -142,5 +142,4 @@ struct PhotoDetailView: View {
       }
     }
   }
-  
 }

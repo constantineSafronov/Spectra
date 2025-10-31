@@ -82,5 +82,4 @@ struct MainView: View {
       )
     }
   }
-  
 }

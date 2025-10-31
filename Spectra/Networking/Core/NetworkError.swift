@@ -32,5 +32,4 @@ enum NetworkError: Error, LocalizedError, Equatable {
   static func == (lhs: NetworkError, rhs: NetworkError) -> Bool {
     lhs.errorDescription == rhs.errorDescription
   }
-  
 }
