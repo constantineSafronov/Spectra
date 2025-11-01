@@ -142,7 +142,6 @@ struct FavoritesRowView: View {
     let ratio = CGFloat(photo.height) / CGFloat(photo.width)
     return width * ratio
   }
-  
 }
 
 // MARK: - Preview

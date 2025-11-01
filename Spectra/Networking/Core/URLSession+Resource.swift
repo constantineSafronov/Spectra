@@ -19,5 +19,4 @@ public extension URLSession {
       throw NetworkError.transportError(error)
     }
   }
-  
 }

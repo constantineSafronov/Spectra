@@ -28,7 +28,6 @@ extension URLRequest {
     self.httpMethod = "GET"
     self.addValue("Client-ID \(APIConfig.unsplashClientID)", forHTTPHeaderField: "Authorization")
   }
-  
 }
 
 enum UnsplashAPI {
@@ -50,5 +49,4 @@ enum UnsplashAPI {
       serializer: Resource<SearchResponse>.jsonSerializer()
     )
   }
-  
 }

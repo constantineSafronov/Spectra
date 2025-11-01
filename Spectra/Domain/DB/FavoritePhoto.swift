@@ -48,7 +48,6 @@ final class FavoritePhoto: Identifiable, Equatable {
   static func == (lhs: FavoritePhoto, rhs: FavoritePhoto) -> Bool {
     lhs.id == rhs.id
   }
-  
 }
 
 struct FavoritePhotoDTO: Equatable, Sendable, Identifiable {

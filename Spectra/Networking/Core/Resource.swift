@@ -22,5 +22,4 @@ extension Resource where T: Decodable {
       return value
     }
   }
-  
 }

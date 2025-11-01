@@ -94,5 +94,4 @@ extension FavoritePhotoClient {
       }
     )
   }
-  
 }

@@ -104,7 +104,6 @@ struct MasonryGridView: View {
     let ratio = CGFloat(photo.height) / CGFloat(photo.width)
     return width * ratio
   }
-  
 }
 
 struct ScrollOffsetKey: PreferenceKey {
@@ -112,7 +111,6 @@ struct ScrollOffsetKey: PreferenceKey {
   static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
     value = nextValue()
   }
-  
 }
 
 struct MasonryPhotoItemView: View {
@@ -171,5 +169,4 @@ struct MasonryPhotoItemView: View {
     
     return width * ratio
   }
-  
 }

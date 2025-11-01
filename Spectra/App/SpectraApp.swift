@@ -43,5 +43,4 @@ struct UnsplashImageLoaderApp: App {
         .modelContainer(for: FavoritePhoto.self)
     }
   }
-  
 }

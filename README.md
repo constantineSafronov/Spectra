@@ -63,10 +63,10 @@ You can get your client ID by creating an account and registering an application
 
 <table>
 <tr>
-  <td><img src="https://github.com/user-attachments/assets/6efe444c-1448-4579-8938-ba0eeaf581aa" alt="Feed" width="226"/></td>
-  <td><img src="https://github.com/user-attachments/assets/e0e39070-bb6b-4d14-96f9-bd5d04872caf" alt="Full Screen" width="226"/></td>
-  <td><img src="https://github.com/user-attachments/assets/47fed776-9f57-45e0-bde8-70eba1dc9519" alt="Search" width="226"/></td>
-  <td><img src="https://github.com/user-attachments/assets/67e329bf-469c-41c8-9f9d-7e3f46beff05" alt="Favorites" width="226"/></td>
+  <td><img src="https://github.com/user-attachments/assets/ce60e32d-6129-4386-92ad-05814d72ce28" alt="Feed" width="226"/></td>
+  <td><img src="https://github.com/user-attachments/assets/f97f8045-8468-47df-8cd5-d9f4fde794f1" alt="Full Screen" width="226"/></td>
+  <td><img src="https://github.com/user-attachments/assets/e46b0085-3071-42dc-8774-204437525fb6" alt="Search" width="226"/></td>
+  <td><img src="https://github.com/user-attachments/assets/ad10aef7-922d-4f7e-acd9-4edf32bb7e3e" alt="Favorites" width="226"/></td>
 </tr>
 </table>
 

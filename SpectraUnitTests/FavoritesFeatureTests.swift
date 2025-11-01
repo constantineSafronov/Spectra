@@ -143,5 +143,4 @@ final class FavoritesFeatureTests: XCTestCase {
     
     XCTAssertTrue(store.state.favorites.isEmpty)
   }
-  
 }

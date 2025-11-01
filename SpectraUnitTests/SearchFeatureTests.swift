@@ -90,7 +90,6 @@ final class SearchFeatureTests: XCTestCase {
       $0.photoList = [.mock, .mock2]
     }
   }
-  
 }
 
 extension Photo {

@@ -29,7 +29,6 @@ enum AppTheme: String, CaseIterable {
     case .system: return LocalizedStrings.Settings.systemMode.localized
     }
   }
-  
 }
 
 @Reducer
@@ -75,5 +74,4 @@ struct SettingsFeature {
       }
     }
   }
-  
 }
