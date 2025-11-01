@@ -15,5 +15,4 @@ struct VisualEffectBlur: UIViewRepresentable {
     }
 
     func updateUIView(_ uiView: UIVisualEffectView, context: Context) { }
-  
 }

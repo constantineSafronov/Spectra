@@ -8,21 +8,21 @@
 import Foundation
 
 struct Photo: Codable, Equatable, Identifiable, Hashable {
-    let id: String
-    let altDescription: String?
-    let urls: Urls
-    let width: Float
-    let height: Float
-    let user: User
-    
-    enum CodingKeys: String, CodingKey {
-        case id
-        case altDescription = "alt_description"
-        case urls
-        case width
-        case height
-        case user
-    }
+  let id: String
+  let altDescription: String?
+  let urls: Urls
+  let width: Float
+  let height: Float
+  let user: User
+  
+  private enum CodingKeys: String, CodingKey {
+    case id
+    case altDescription = "alt_description"
+    case urls
+    case width
+    case height
+    case user
+  }
 }
 
 struct Urls: Codable, Equatable, Hashable {
@@ -43,7 +43,7 @@ struct SearchResponse: Codable, Equatable {
   let totalPages: Int
   let results: [Photo]
   
-  enum CodingKeys: String, CodingKey {
+  private enum CodingKeys: String, CodingKey {
     case total
     case totalPages = "total_pages"
     case results
