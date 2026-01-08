@@ -11,12 +11,12 @@ import SwiftData
 final class FavoritePhoto: Identifiable, Equatable {
   
   @Attribute(.unique) var id: String
-  @Attribute var userName: String
-  @Attribute var photoDescription: String?
-  @Attribute var smallURL: String
-  @Attribute var fullURL: String
-  @Attribute var width: Float
-  @Attribute var height: Float
+  var userName: String
+  var photoDescription: String?
+  var smallURL: String
+  var fullURL: String
+  var width: Float
+  var height: Float
   
   init(
     id: String,
